@@ -1,6 +1,6 @@
 package com.semtleapp.semtleapp.semtleuser.service;
 
-import com.semtleapp.semtleapp.semtleuser.config.JwtTokenProvider;
+import com.semtleapp.semtleapp.semtleuser.config.JwtProvider;
 import com.semtleapp.semtleapp.semtleuser.dto.CustomResponse;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import com.semtleapp.semtleapp.semtleuser.dto.Token;
@@ -22,7 +22,7 @@ import java.util.Optional;
 public class JwtService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtProvider jwtProvider;
 
     @Transactional
     public Token login(HttpServletRequest request, SemtleUserDto semtleUserDto, String userAgent) {
@@ -36,7 +36,7 @@ public class JwtService {
     }
 
     private Token getLoginToken(String email, String userAgent) {
-        Token token = jwtTokenProvider.createToken(email);
+        Token token = jwtProvider.createToken(email);
         //RefreshToken을 DB에 저장
         RefreshToken refreshToken = RefreshToken.builder()
                 .keyId(token.getKey())
@@ -64,7 +64,7 @@ public class JwtService {
 
     public String getNewAccessToken(RefreshToken refreshToken) {
         if(refreshToken.getRefreshToken() != null)
-            return jwtTokenProvider.validateRefreshToken(refreshToken);
+            return jwtProvider.validateRefreshToken(refreshToken);
         else
             throw new CustomException(ErrorCode.ReLogin);
     }

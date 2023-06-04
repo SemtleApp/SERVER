@@ -30,7 +30,7 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtProvider jwtProvider;
     private final AuthenticationEntryPointHandler authenticationEntryPointHandler;
     private final WebAccessDeniedHandler webAccessDeniedHandler;
 
@@ -65,7 +65,7 @@ public class WebSecurityConfig {
                 .authenticationEntryPoint(authenticationEntryPointHandler)
                 .accessDeniedHandler(webAccessDeniedHandler)
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
                         UsernamePasswordAuthenticationFilter.class); // JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
 
         // + 토큰에 저장된 유저정보를 활용하여야 하기 때문에 CustomUserDetailService 클래스를 생성합니다.
