@@ -18,20 +18,19 @@ import java.util.stream.Collectors;
 public class SemtleUserDto {
     private String email;
     private String role;
-    private List<SemtlePostDto> semtlePostList;
-
+    private String password;
     @Builder
-    public SemtleUserDto(String email, String role, List<SemtlePostDto> semtlePostList) {
+    public SemtleUserDto(String email, String password, String role) {
         this.email = email;
+        this.password = password;
         this.role = role;
-        this.semtlePostList = semtlePostList;
     }
 
     public SemtleUser toEntity() {
         return SemtleUser.builder()
                 .email(email)
-                .role(role)
-                .semtlePostList(semtlePostList.stream().map(m -> m.toEntity()).collect(Collectors.toList())).build();
+                .password(password)
+                .role(role).build();
     }
 
 }
