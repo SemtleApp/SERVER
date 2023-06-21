@@ -5,27 +5,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-
 @Setter
 @Getter
 @NoArgsConstructor
 public class PhotoDto {
     private Long targetId;
     private String type;
-    private String file_name;
-    private String file_url;
-    private String file_download_path;
-    private Long file_size;
+    private String fileName;
+    private String fileUrl;
+    private String fileDownloadPath;
+    private Long fileSize;
 
     @Builder
-    public PhotoDto(Long targetId, String type, String file_name, String file_url, String file_download_path, Long file_size) {
+    public PhotoDto(Long targetId, String type, String fileName, String fileUrl, String fileDownloadPath, Long fileSize) {
         this.targetId = targetId;
         this.type = type;
-        this.file_name = file_name;
-        this.file_url = file_url;
-        this.file_download_path = file_download_path;
-        this.file_size = file_size;
+        this.fileName = fileName;
+        this.fileUrl = fileUrl;
+        this.fileDownloadPath = fileDownloadPath;
+        this.fileSize = fileSize;
     }
 
 

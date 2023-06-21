@@ -1,12 +1,13 @@
-package com.semtleapp.semtleapp.common.file;
+package com.semtleapp.semtleapp.common.service;
 
 import com.semtleapp.semtleapp.common.entity.Photo;
 import com.semtleapp.semtleapp.common.entity.PhotoDto;
 import com.semtleapp.semtleapp.common.entity.PhotoType;
+import com.semtleapp.semtleapp.common.file.FileUploadProperties;
 import com.semtleapp.semtleapp.common.repository.PhotoRepository;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -18,10 +19,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-@Component
-public class FileHandler {
+@Service
+public class FileUserServiceImpl implements FileUserService{
     private final PhotoRepository photoRepository;
 
     private final Path fileLocation;
@@ -29,7 +32,7 @@ public class FileHandler {
     public static final String URL_DOWNLOAD = "/downloadFile/";
 
     @Autowired
-    public FileHandler(PhotoRepository photoRepository, FileUploadProperties fileUploadProperties) {
+    public FileUserServiceImpl(PhotoRepository photoRepository, FileUploadProperties fileUploadProperties) {
         this.photoRepository = photoRepository;
         this.fileLocation = Paths.get(fileUploadProperties.getUploadDir()).toAbsolutePath().normalize();
         try {
@@ -39,7 +42,32 @@ public class FileHandler {
         }
     }
 
-    public PhotoDto uploadFile(MultipartFile file, PhotoType photoType, Long targetId) throws IOException {
+    @Override
+    public List<PhotoDto> saveFile(List<MultipartFile> files, PhotoType photoType, Long targetId) throws IOException {
+        List<PhotoDto> photoDtoList = new ArrayList<>();
+
+        for(MultipartFile file : files) {
+            photoDtoList.add(uploadFile(file, photoType, targetId));
+        }
+        return photoDtoList;
+    }
+
+    @Override
+    public void deleteFile(PhotoType photoType, Long targetId) {
+        List<Photo> photoList = photoRepository.findByTargetIdAndType(targetId, photoType.getValue());
+        if(photoList != null) {
+            for(Photo list : photoList) {
+                File listOfFile = new File(list.getFilePath());
+                if(listOfFile.exists()) {
+                    listOfFile.delete();
+                    photoRepository.deleteByPhotoId(list.getPhotoId());
+                }
+
+            }
+        }
+    }
+
+    private PhotoDto uploadFile(MultipartFile file, PhotoType photoType, Long targetId) throws IOException {
         String originFileName = file.getOriginalFilename();
         String fileName = StringUtils.cleanPath(parseUUID(originFileName));
 
@@ -53,16 +81,15 @@ public class FileHandler {
         Photo photo = Photo.builder()
                 .targetId(targetId)
                 .type(photoType.getValue())
-                .uu_id(FILE.getName())
-                .file_name(originFileName)
-                .file_path(targetLocation.toString())
-                .file_url(parseFileUrl(URL_VIEW, FILE.getName()))
-                .file_download_path(parseFileUrl(URL_DOWNLOAD, FILE.getName()))
-                .file_size(bytes).build();
+                .uuId(FILE.getName())
+                .fileName(originFileName)
+                .filePath(targetLocation.toString())
+                .fileUrl(parseFileUrl(URL_VIEW, FILE.getName()))
+                .fileDownloadPath(parseFileUrl(URL_DOWNLOAD, FILE.getName()))
+                .fileSize(bytes).build();
         photoRepository.save(photo);
         return photo.toDto();
     }
-
 
     private String parseUUID(String fileName) {
         Date now = new Date();

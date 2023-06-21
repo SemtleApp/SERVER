@@ -23,44 +23,44 @@ public class Photo extends BaseTimeEntity {
     @Column
     private String type;
 
-    @Column
-    private String uu_id;
+    @Column(name = "uu_id")
+    private String uuId;
 
-    @Column
-    private String file_name;
+    @Column(name = "file_name")
+    private String fileName;
 
-    @Column
-    private String file_path;
+    @Column(name = "file_path")
+    private String filePath;
 
-    @Column
-    private String file_url;
+    @Column(name = "file_url")
+    private String fileUrl;
 
-    @Column
-    private String file_download_path;
+    @Column(name = "file_download_path")
+    private String fileDownloadPath;
 
-    @Column
-    private Long file_size;
+    @Column(name = "file_size")
+    private Long fileSize;
 
     @Builder
-    public Photo(Long targetId, String type, String uu_id, String file_name, String file_path, String file_url, String file_download_path, Long file_size) {
+    public Photo(Long targetId, String type, String uuId, String fileName, String filePath, String fileUrl, String fileDownloadPath, Long fileSize) {
         this.targetId = targetId;
         this.type = type;
-        this.uu_id = uu_id;
-        this.file_name = file_name;
-        this.file_path = file_path;
-        this.file_url = file_url;
-        this.file_download_path = file_download_path;
-        this.file_size = file_size;
+        this.uuId = uuId;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.fileUrl = fileUrl;
+        this.fileDownloadPath = fileDownloadPath;
+        this.fileSize = fileSize;
     }
 
     public PhotoDto toDto() {
         return PhotoDto.builder()
                 .targetId(targetId)
                 .type(type)
-                .file_name(file_name)
-                .file_url(file_url)
-                .file_download_path(file_download_path)
-                .file_size(file_size).build();
+                .fileName(fileName)
+                .fileUrl(fileUrl)
+                .fileDownloadPath(fileDownloadPath)
+                .fileSize(fileSize).build();
     }
 
 }
