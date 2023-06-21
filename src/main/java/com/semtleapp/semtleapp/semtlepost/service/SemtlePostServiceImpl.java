@@ -6,7 +6,6 @@ import com.semtleapp.semtleapp.semtlepost.repository.SemtlePostRepository;
 import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequiredArgsConstructor
 @Service
@@ -16,8 +15,8 @@ public class SemtlePostServiceImpl implements SemtlePostService  {
 
     @Override
     public SemtlePostDto create(String email, SemtlePostDto semtlePostDto) {
-        SemtlePost semtlePost = semtlePostRepository.save(semtlePostDto.toEntity());
+        SemtlePost semtlePost = semtlePostDto.toEntity();
         semtlePost.setSemtleUser(semtleUserRepository.findByEmail(email).get());
-        return semtlePost.toDto();
+        return semtlePostRepository.save(semtlePost).toDto();
     }
 }
