@@ -1,5 +1,6 @@
 package com.semtleapp.semtleapp.semtlepost.dto;
 
+import com.semtleapp.semtleapp.common.entity.PhotoDto;
 import com.semtleapp.semtleapp.semtlepost.entity.SemtlePost;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,6 +22,7 @@ public class SemtlePostDto {
     private SemtleUserDto semtleUserDto;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private List<PhotoDto> photoDtoList;
 
     @Builder
     public SemtlePostDto(Long postId, String title, String content, SemtleUserDto semtleUserDto, LocalDateTime createdDate, LocalDateTime updatedDate) {
