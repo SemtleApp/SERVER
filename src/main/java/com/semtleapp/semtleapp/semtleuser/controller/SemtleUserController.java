@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/first-service")
+@RequestMapping("/user")
 public class SemtleUserController {
     private final SemtleUserService semtleUserService;
     private final PasswordEncoder passwordEncoder;

@@ -1,5 +1,8 @@
 package com.semtleapp.semtleapp.semtleuser.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.semtleapp.semtleapp.common.entity.BaseTimeEntity;
+import com.semtleapp.semtleapp.semtlepost.entity.SemtlePost;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,12 +14,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @Table(name = "semtle_user")
-public class SemtleUser implements UserDetails {
+public class SemtleUser extends BaseTimeEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +36,14 @@ public class SemtleUser implements UserDetails {
 
     @Column(name = "role")
     private String role;
+
+    @OneToMany(
+            mappedBy = "semtleUser",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true
+    )
+    @JsonManagedReference
+    private List<SemtlePost> semtlePostList = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -66,18 +79,22 @@ public class SemtleUser implements UserDetails {
     }
 
     @Builder
-    public SemtleUser(String email, String password, String role) {
+    public SemtleUser(String email, String password, String role, List<SemtlePost> semtlePostList) {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.semtlePostList = semtlePostList;
     }
 
     public SemtleUserDto toDto() {
         return SemtleUserDto.builder()
                 .email(email)
-                .password(password)
-                .role(role).build();
+                .role(role)
+                .semtlePostList(semtlePostList.stream().map(m -> m.toDto()).collect(Collectors.toList())).build();
     }
 
-
+    public void addPost(SemtlePost semtlePost) {
+        this.semtlePostList.add(semtlePost);
+        semtlePost.setSemtleUser(this);
+    }
 }

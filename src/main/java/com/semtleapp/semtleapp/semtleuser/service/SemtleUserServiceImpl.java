@@ -4,7 +4,7 @@ import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import com.semtleapp.semtleapp.semtleuser.handler.CustomException;
 import com.semtleapp.semtleapp.semtleuser.handler.ErrorCode;
-import com.semtleapp.semtleapp.semtleuser.repository.MemberRepository;
+import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,22 +16,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsService {
-    private final MemberRepository memberRepository;
+    private final SemtleUserRepository semtleUserRepository;
 
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return memberRepository.findByEmail(username).orElseThrow(
+        return semtleUserRepository.findByEmail(username).orElseThrow(
                 () -> new RuntimeException());
     }
 
     @Override
     public SemtleUserDto create(SemtleUserDto semtleUserDto) {
-        memberRepository.findByEmail(semtleUserDto.getEmail()).ifPresent(e -> {
+        semtleUserRepository.findByEmail(semtleUserDto.getEmail()).ifPresent(e -> {
             throw new CustomException(ErrorCode.REFISTEREDEMAIL);
         });
-        SemtleUser user = memberRepository.save(semtleUserDto.toEntity());
+        SemtleUser user = semtleUserRepository.save(semtleUserDto.toEntity());
 
         return user.toDto();
     }
