@@ -37,16 +37,13 @@ public class SemtlePostServiceImpl implements SemtlePostService  {
 
         SemtlePostDto res_semtlePostDto = semtlePostRepository.save(semtlePost).toDto();
 
-        List<PhotoDto> photoDtoList = new ArrayList<>();
-
         try {
-            for(MultipartFile file : files) {
-                photoDtoList.add(fileUserService.uploadFile(file, PhotoType.POST, res_semtlePostDto.getPostId()));
-            }
-        } catch(IOException e) {
+            List<PhotoDto> photoDtoList = fileUserService.saveFile(files, PhotoType.POST, res_semtlePostDto.getPostId());
+             res_semtlePostDto.setPhotoDtoList(photoDtoList);
+        } catch (IOException e) {
             e.printStackTrace();
+            //handlering Please
         }
-        res_semtlePostDto.setPhotoDtoList(photoDtoList);
 
         return res_semtlePostDto;
     }

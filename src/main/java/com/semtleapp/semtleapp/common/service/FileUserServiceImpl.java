@@ -19,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,8 +41,33 @@ public class FileUserServiceImpl implements FileUserService{
             e.printStackTrace();
         }
     }
+
     @Override
-    public PhotoDto uploadFile(MultipartFile file, PhotoType photoType, Long targetId) throws IOException {
+    public List<PhotoDto> saveFile(List<MultipartFile> files, PhotoType photoType, Long targetId) throws IOException {
+        List<PhotoDto> photoDtoList = new ArrayList<>();
+
+        for(MultipartFile file : files) {
+            photoDtoList.add(uploadFile(file, photoType, targetId));
+        }
+        return photoDtoList;
+    }
+
+    @Override
+    public void deleteFile(PhotoType photoType, Long targetId) {
+        List<Photo> photoList = photoRepository.findByTargetIdAndType(targetId, photoType.getValue());
+        if(photoList != null) {
+            for(Photo list : photoList) {
+                File listOfFile = new File(list.getFilePath());
+                if(listOfFile.exists()) {
+                    listOfFile.delete();
+                    photoRepository.deleteByPhotoId(list.getPhotoId());
+                }
+
+            }
+        }
+    }
+
+    private PhotoDto uploadFile(MultipartFile file, PhotoType photoType, Long targetId) throws IOException {
         String originFileName = file.getOriginalFilename();
         String fileName = StringUtils.cleanPath(parseUUID(originFileName));
 
@@ -63,20 +89,6 @@ public class FileUserServiceImpl implements FileUserService{
                 .fileSize(bytes).build();
         photoRepository.save(photo);
         return photo.toDto();
-    }
-    @Override
-    public void deleteFile(PhotoType photoType, Long targetId) {
-        List<Photo> photoList = photoRepository.findByTargetIdAndType(targetId, photoType.getValue());
-        if(photoList != null) {
-            for(Photo list : photoList) {
-                File listOfFile = new File(list.getFilePath());
-                if(listOfFile.exists()) {
-                    listOfFile.delete();
-                    photoRepository.deleteByPhotoId(list.getPhotoId());
-                }
-
-            }
-        }
     }
 
     private String parseUUID(String fileName) {

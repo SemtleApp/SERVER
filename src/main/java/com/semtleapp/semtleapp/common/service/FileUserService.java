@@ -5,9 +5,10 @@ import com.semtleapp.semtleapp.common.entity.PhotoType;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface FileUserService {
-    PhotoDto uploadFile(MultipartFile file, PhotoType photoType, Long targetId) throws IOException;
+    List<PhotoDto> saveFile(List<MultipartFile> files, PhotoType photoType, Long targetId) throws IOException;
     void deleteFile(PhotoType photoType, Long targetId);
 
 }
