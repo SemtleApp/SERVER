@@ -1,8 +1,8 @@
 package com.semtleapp.semtleapp.semtleuser.controller;
 
-import com.semtleapp.semtleapp.semtleuser.dto.CustomResponse;
+import com.semtleapp.semtleapp.global.entity.CustomResponse;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
-import com.semtleapp.semtleapp.semtleuser.service.JwtService;
+import com.semtleapp.semtleapp.global.jwt.JwtService;
 import com.semtleapp.semtleapp.semtleuser.service.SemtleUserService;
 import com.semtleapp.semtleapp.semtleuser.service.SemtleUserServiceImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;

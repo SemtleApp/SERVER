@@ -1,7 +1,7 @@
 package com.semtleapp.semtleapp.semtleuser.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.semtleapp.semtleapp.common.entity.BaseTimeEntity;
+import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
 import com.semtleapp.semtleapp.semtlepost.entity.SemtlePost;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import lombok.Builder;
@@ -15,7 +15,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter

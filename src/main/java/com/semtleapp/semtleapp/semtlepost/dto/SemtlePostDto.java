@@ -1,9 +1,8 @@
 package com.semtleapp.semtleapp.semtlepost.dto;
 
-import com.semtleapp.semtleapp.common.entity.PhotoDto;
+import com.semtleapp.semtleapp.file.entity.PhotoDto;
 import com.semtleapp.semtleapp.semtlepost.entity.SemtlePost;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
-import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

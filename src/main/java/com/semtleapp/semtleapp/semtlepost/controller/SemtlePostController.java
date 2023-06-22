@@ -3,7 +3,7 @@ package com.semtleapp.semtleapp.semtlepost.controller;
 import com.semtleapp.semtleapp.semtlepost.dto.SemtlePostDto;
 import com.semtleapp.semtleapp.semtlepost.service.SemtlePostService;
 import com.semtleapp.semtleapp.semtlepost.service.SemtlePostServiceImpl;
-import com.semtleapp.semtleapp.semtleuser.dto.CustomResponse;
+import com.semtleapp.semtleapp.global.entity.CustomResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

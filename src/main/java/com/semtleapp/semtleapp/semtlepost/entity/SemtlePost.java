@@ -1,7 +1,7 @@
 package com.semtleapp.semtleapp.semtlepost.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.semtleapp.semtleapp.common.entity.BaseTimeEntity;
+import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
 import com.semtleapp.semtleapp.semtlepost.dto.SemtlePostDto;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import lombok.Builder;
