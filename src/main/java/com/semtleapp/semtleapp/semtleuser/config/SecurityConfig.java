@@ -28,7 +28,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig {
+public class SecurityConfig {
 
     private final JwtProvider jwtProvider;
     private final AuthenticationEntryPointHandler authenticationEntryPointHandler;
