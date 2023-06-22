@@ -5,6 +5,7 @@ import com.semtleapp.semtleapp.common.entity.PhotoDto;
 import com.semtleapp.semtleapp.common.entity.PhotoType;
 import com.semtleapp.semtleapp.common.file.FileUploadProperties;
 import com.semtleapp.semtleapp.common.repository.PhotoRepository;
+import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class FileUserServiceImpl implements FileUserService{
     private final PhotoRepository photoRepository;
 
