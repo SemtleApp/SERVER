@@ -1,4 +1,4 @@
-package com.semtleapp.semtleapp.global.handler;
+package com.semtleapp.semtleapp.global.exception;
 
 import org.json.simple.JSONObject;
 import org.springframework.security.access.AccessDeniedException;

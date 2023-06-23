@@ -1,8 +1,12 @@
-package com.semtleapp.semtleapp.global.handler;
+package com.semtleapp.semtleapp.global.exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+
+@AllArgsConstructor
+@Getter
 public enum ErrorCode {
     UsernameOrPasswordNotFoundException (400, "아이디 또는 비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST),
     PasswordNotFoundException (400, "비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST),
@@ -15,18 +19,11 @@ public enum ErrorCode {
     REFISTEREDEMAIL(400, "등록된 회원입니다.", HttpStatus.BAD_REQUEST),
     NOTFOUND(404, "일치하는 정보가 없습니다.", HttpStatus.NOT_FOUND),
     ;
-    @Getter
+
     private int code;
-    @Getter
     private String message;
-    @Getter
     private HttpStatus status;
 
-    ErrorCode(int code, String message, HttpStatus status) {
-        this.code = code;
-        this.message = message;
-        this.status = status;
-    }
 
     public String toString() {
         return "{" +

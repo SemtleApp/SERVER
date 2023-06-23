@@ -1,12 +1,11 @@
 package com.semtleapp.semtleapp.global.jwt;
 
-import com.semtleapp.semtleapp.global.jwt.JwtProvider;
 import com.semtleapp.semtleapp.global.entity.CustomResponse;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import com.semtleapp.semtleapp.semtleuser.dto.Token;
 import com.semtleapp.semtleapp.semtleuser.entity.RefreshToken;
-import com.semtleapp.semtleapp.global.handler.CustomException;
-import com.semtleapp.semtleapp.global.handler.ErrorCode;
+import com.semtleapp.semtleapp.global.exception.CustomException;
+import com.semtleapp.semtleapp.global.exception.ErrorCode;
 import com.semtleapp.semtleapp.semtleuser.repository.RefreshTokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

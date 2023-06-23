@@ -1,4 +1,4 @@
-package com.semtleapp.semtleapp.global.handler;
+package com.semtleapp.semtleapp.global.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,5 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class CustomException extends RuntimeException{
-    ErrorCode authCode;
+    ErrorCode errorCode;
 }

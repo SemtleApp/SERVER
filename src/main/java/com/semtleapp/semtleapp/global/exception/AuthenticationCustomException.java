@@ -1,4 +1,4 @@
-package com.semtleapp.semtleapp.global.handler;
+package com.semtleapp.semtleapp.global.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

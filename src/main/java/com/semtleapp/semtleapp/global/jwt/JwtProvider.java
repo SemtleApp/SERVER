@@ -3,8 +3,8 @@ package com.semtleapp.semtleapp.global.jwt;
 
 import com.semtleapp.semtleapp.semtleuser.dto.Token;
 import com.semtleapp.semtleapp.semtleuser.entity.RefreshToken;
-import com.semtleapp.semtleapp.global.handler.AuthenticationCustomException;
-import com.semtleapp.semtleapp.global.handler.ErrorCode;
+import com.semtleapp.semtleapp.global.exception.AuthenticationCustomException;
+import com.semtleapp.semtleapp.global.exception.ErrorCode;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
