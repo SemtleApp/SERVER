@@ -1,20 +1,18 @@
 package com.semtleapp.semtleapp.semtlepost.service;
 
-import com.semtleapp.semtleapp.common.entity.PhotoDto;
-import com.semtleapp.semtleapp.common.entity.PhotoType;
-import com.semtleapp.semtleapp.common.service.FileUserService;
-import com.semtleapp.semtleapp.common.service.FileUserServiceImpl;
+import com.semtleapp.semtleapp.file.entity.PhotoDto;
+import com.semtleapp.semtleapp.file.entity.PhotoType;
+import com.semtleapp.semtleapp.file.service.FileUserService;
+import com.semtleapp.semtleapp.file.service.FileUserServiceImpl;
 import com.semtleapp.semtleapp.semtlepost.dto.SemtlePostDto;
 import com.semtleapp.semtleapp.semtlepost.entity.SemtlePost;
 import com.semtleapp.semtleapp.semtlepost.repository.SemtlePostRepository;
 import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 

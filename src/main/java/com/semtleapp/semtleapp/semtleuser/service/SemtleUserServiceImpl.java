@@ -2,8 +2,8 @@ package com.semtleapp.semtleapp.semtleuser.service;
 
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
-import com.semtleapp.semtleapp.semtleuser.handler.CustomException;
-import com.semtleapp.semtleapp.semtleuser.handler.ErrorCode;
+import com.semtleapp.semtleapp.global.handler.CustomException;
+import com.semtleapp.semtleapp.global.handler.ErrorCode;
 import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

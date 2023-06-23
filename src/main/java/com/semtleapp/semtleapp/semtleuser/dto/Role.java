@@ -7,13 +7,13 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum Role {
-    ADMIN("ROLE_ADMIN"),
-    ASEM("ROLE_ASEM"),
-    BSEM("ROLE_BSEM"),
-    CSEM("ROLE_CSEM"),
-    DSEM("ROLE_DSEM"),
-    ESEM("ROLE_ESEM"),
-    USER("ROLE_USER");
+    ADMIN("ROLE_ADMIN"), //회장
+    ASEM("ROLE_ASEM"), //부회장
+    BSEM("ROLE_BSEM"), //총무
+    CSEM("ROLE_CSEM"), //서기
+    DSEM("ROLE_DSEM"), //홍보
+    ESEM("ROLE_ESEM"), //스터디
+    USER("ROLE_USER"); //일반 유저
     private String value;
 
     @JsonCreator
