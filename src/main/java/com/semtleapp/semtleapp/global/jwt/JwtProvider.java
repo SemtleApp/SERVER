@@ -3,8 +3,8 @@ package com.semtleapp.semtleapp.global.jwt;
 
 import com.semtleapp.semtleapp.semtleuser.dto.Token;
 import com.semtleapp.semtleapp.semtleuser.entity.RefreshToken;
-import com.semtleapp.semtleapp.global.handler.AuthenticationCustomException;
-import com.semtleapp.semtleapp.global.handler.ErrorCode;
+import com.semtleapp.semtleapp.global.exception.AuthenticationCustomException;
+import com.semtleapp.semtleapp.global.exception.ErrorCode;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -131,7 +131,7 @@ public class JwtProvider {
             return recreateAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("roles"));
         }catch (Exception e) {
             e.printStackTrace();
-            throw new AuthenticationCustomException(ErrorCode.ExpiredJwtException);
+            throw new AuthenticationCustomException(ErrorCode.EXPIRED_JWT);
         }
         //토큰 만료시 login페이지 reDirect
     }

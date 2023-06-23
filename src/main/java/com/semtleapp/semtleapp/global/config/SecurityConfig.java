@@ -2,8 +2,8 @@ package com.semtleapp.semtleapp.global.config;
 
 import com.semtleapp.semtleapp.global.jwt.JwtProvider;
 import com.semtleapp.semtleapp.global.jwt.JwtAuthenticationFilter;
-import com.semtleapp.semtleapp.global.handler.AuthenticationEntryPointHandler;
-import com.semtleapp.semtleapp.global.handler.WebAccessDeniedHandler;
+import com.semtleapp.semtleapp.global.exception.AuthenticationEntryPointHandler;
+import com.semtleapp.semtleapp.global.exception.WebAccessDeniedHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

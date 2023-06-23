@@ -1,4 +1,4 @@
-package com.semtleapp.semtleapp.global.handler;
+package com.semtleapp.semtleapp.global.exception;
 
 import org.json.simple.JSONObject;
 import org.springframework.security.access.AccessDeniedException;
@@ -14,7 +14,7 @@ import java.io.IOException;
 public class WebAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        ErrorCode errorCode = ErrorCode.ForbiddenException;
+        ErrorCode errorCode = ErrorCode.FORBIDDEN;
 
         response.setContentType("application/json;charset=UTF-8");
         response.setCharacterEncoding("utf-8");

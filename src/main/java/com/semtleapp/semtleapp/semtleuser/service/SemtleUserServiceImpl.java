@@ -2,8 +2,8 @@ package com.semtleapp.semtleapp.semtleuser.service;
 
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
-import com.semtleapp.semtleapp.global.handler.CustomException;
-import com.semtleapp.semtleapp.global.handler.ErrorCode;
+import com.semtleapp.semtleapp.global.exception.CustomException;
+import com.semtleapp.semtleapp.global.exception.ErrorCode;
 import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +29,7 @@ public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsServ
     @Override
     public SemtleUserDto create(SemtleUserDto semtleUserDto) {
         semtleUserRepository.findByEmail(semtleUserDto.getEmail()).ifPresent(e -> {
-            throw new CustomException(ErrorCode.REFISTEREDEMAIL);
+            throw new CustomException(ErrorCode.REGISTERED_EMAIL);
         });
         SemtleUser user = semtleUserRepository.save(semtleUserDto.toEntity());
 
