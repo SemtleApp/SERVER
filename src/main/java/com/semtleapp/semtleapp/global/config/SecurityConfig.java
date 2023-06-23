@@ -51,6 +51,11 @@ public class SecurityConfig {
         //http.httpBasic().disable(); // 일반적인 루트가 아닌 다른 방식으로 요청시 거절, header에 id, pw가 아닌 token(jwt)을 달고 간다. 그래서 basic이 아닌 bearer를 사용한다.
         http.httpBasic().disable()
                 .authorizeRequests()// 요청에 대한 사용권한 체크
+                //swagger 권한 해제
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/webjars/**").permitAll()
+                .antMatchers("/v3/api-docs").permitAll()
                 //uri에 s1이 들어가면 jwt 검증
                 .antMatchers("/s1/**").authenticated()
                 .antMatchers("/s1/m/**").hasRole("ADMIN")//회장
