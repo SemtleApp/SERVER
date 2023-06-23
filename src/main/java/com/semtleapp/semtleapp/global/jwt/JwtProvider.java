@@ -128,7 +128,7 @@ public class JwtProvider {
             /*if(!claims.getBody().getExpiration().before(new Date())) {
                 return recreationAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("roles"));
             }*/
-            return recreationAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("roles"));
+            return recreateAccessToken(claims.getBody().get("sub").toString(), claims.getBody().get("roles"));
         }catch (Exception e) {
             e.printStackTrace();
             throw new AuthenticationCustomException(ErrorCode.ExpiredJwtException);
@@ -137,7 +137,7 @@ public class JwtProvider {
     }
 
     //AccessToken 새로 발급
-    private String recreationAccessToken(String email, Object roles) {
+    private String recreateAccessToken(String email, Object roles) {
         Claims claims = Jwts.claims().setSubject(email);
         claims.put("roles", roles);
         Date currentTime = new Date();
