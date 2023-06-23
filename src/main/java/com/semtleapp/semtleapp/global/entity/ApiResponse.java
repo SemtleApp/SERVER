@@ -1,10 +1,12 @@
 package com.semtleapp.semtleapp.global.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({"code", "message", "data"})
 public class ApiResponse<T> {
 
     private int code;

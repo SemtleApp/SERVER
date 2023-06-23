@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.semtleapp.semtleapp.global.exception.ErrorCode.UsernameOrPasswordNotFoundException;
+import static com.semtleapp.semtleapp.global.exception.ErrorCode.BAD_REQUEST;
+import static com.semtleapp.semtleapp.global.exception.ErrorCode.USERNAME_OR_PASSWORD_NOT_FOUND_EXCEPTION;
 
 @RequiredArgsConstructor
 @RequestMapping("/test")
@@ -23,14 +24,14 @@ public class testController {
 
     @GetMapping("/fail")
     public ApiResponse<String> customExceptionTest(){
-        throw new CustomException(UsernameOrPasswordNotFoundException);
+        throw new CustomException(BAD_REQUEST);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ApiResponse<String> test(@RequestParam(required = false) String s){
 
-        if(s.equals("null"))
-            throw new CustomException(UsernameOrPasswordNotFoundException);
+        if("null".equals(s))
+            throw new CustomException(BAD_REQUEST);
 
 
         return new ApiResponse<>("test 성공");

@@ -14,7 +14,7 @@ import java.io.IOException;
 public class WebAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        ErrorCode errorCode = ErrorCode.ForbiddenException;
+        ErrorCode errorCode = ErrorCode.FORBIDDEN;
 
         response.setContentType("application/json;charset=UTF-8");
         response.setCharacterEncoding("utf-8");

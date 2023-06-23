@@ -65,7 +65,7 @@ public class JwtService {
         if(refreshToken.getRefreshToken() != null)
             return jwtProvider.validateRefreshToken(refreshToken);
         else
-            throw new CustomException(ErrorCode.ReLogin);
+            throw new CustomException(ErrorCode.NEED_TO_RELOGIN);
     }
 
 }

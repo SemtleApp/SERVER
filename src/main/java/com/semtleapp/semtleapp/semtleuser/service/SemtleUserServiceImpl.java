@@ -29,7 +29,7 @@ public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsServ
     @Override
     public SemtleUserDto create(SemtleUserDto semtleUserDto) {
         semtleUserRepository.findByEmail(semtleUserDto.getEmail()).ifPresent(e -> {
-            throw new CustomException(ErrorCode.REFISTEREDEMAIL);
+            throw new CustomException(ErrorCode.REGISTERED_EMAIL);
         });
         SemtleUser user = semtleUserRepository.save(semtleUserDto.toEntity());
 
