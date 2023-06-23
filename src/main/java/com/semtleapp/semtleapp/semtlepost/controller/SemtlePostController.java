@@ -19,7 +19,6 @@ import java.util.List;
 public class SemtlePostController {
     private final SemtlePostService semtlePostService;
 
-    @Tag(name = "post", description = "공지사항 API")
     @PostMapping("/write")
     public CustomResponse createPost(Principal principal, @RequestPart(value = "image", required = false) List<MultipartFile> files, @RequestPart(value = "semtlePostDto") SemtlePostDto semtlePostDto) throws Exception {
         //principal.getName() 하면 시큐리티에서 들어온 회원의 이매일을 가지고옴.
