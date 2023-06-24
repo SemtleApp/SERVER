@@ -13,6 +13,7 @@ public enum PhotoType {
     NOTICE("NOTICE", "/NOTICE"),
     ACCOUNTING("ACCOUNTING", "/ACCOUNTING"),
     STUDY("STUDY", "/STUDY"),
+    BOOK("BOOK", "/BOOK"),
     ANY("ANY", "/ANY");
 
     private String value;
