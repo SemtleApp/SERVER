@@ -30,6 +30,7 @@ public class FileController {
         this.fileUserService = fileUserService;
     }
 
+    @PostMapping("/upload/book")
     public CustomResponse uploadFile(@RequestPart(value = "image", required = false) List<MultipartFile> files) throws Exception {
         fileUserService.saveFile(files, PhotoType.BOOK, null);
         return null;
