@@ -30,10 +30,6 @@ public class FileController {
         this.fileUserService = fileUserService;
     }
 
-    public CustomResponse uploadFile(@RequestPart(value = "image", required = false) List<MultipartFile> files) throws Exception {
-        fileUserService.saveFile(files, PhotoType.BOOK, null);
-        return null;
-    }
 
     @GetMapping("/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(HttpServletRequest request, @PathVariable String fileName) {

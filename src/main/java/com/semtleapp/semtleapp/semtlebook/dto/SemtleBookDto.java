@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class SemtleBookDto {
+    private Long bookId;
     private String bookName;
     private String bookAuthor;
     private String bookImage;
@@ -17,7 +18,8 @@ public class SemtleBookDto {
     private String status;
 
     @Builder
-    public SemtleBookDto(String bookName, String bookAuthor, String bookImage, int bookCount, String status) {
+    public SemtleBookDto(Long bookId, String bookName, String bookAuthor, String bookImage, int bookCount, String status) {
+        this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookImage = bookImage;
@@ -27,6 +29,7 @@ public class SemtleBookDto {
 
     public SemtleBook toEntity() {
         return SemtleBook.builder()
+                .bookId(bookId)
                 .bookName(bookName)
                 .bookAuthor(bookAuthor)
                 .bookImage(bookImage)
