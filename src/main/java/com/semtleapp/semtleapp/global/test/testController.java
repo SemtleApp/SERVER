@@ -17,15 +17,15 @@ import static com.semtleapp.semtleapp.global.exception.ErrorCode.USERNAME_OR_PAS
 @RestController
 public class testController {
 
-    @GetMapping("/success")
-    public ApiResponse<String> success(){
-        return new ApiResponse<>("요청 성공 시 반환되는 객체");
-    }
-
-    @GetMapping("/fail")
-    public ApiResponse<String> customExceptionTest(){
-        throw new CustomException(BAD_REQUEST);
-    }
+//    @GetMapping("/success")
+//    public ApiResponse<String> success(){
+//        return new ApiResponse<>("요청 성공 시 반환되는 객체");
+//    }
+//
+//    @GetMapping("/fail")
+//    public ApiResponse<String> customExceptionTest(){
+//        throw new CustomException(BAD_REQUEST);
+//    }
 
     @GetMapping("")
     public ApiResponse<String> test(@RequestParam(required = false) String s){
