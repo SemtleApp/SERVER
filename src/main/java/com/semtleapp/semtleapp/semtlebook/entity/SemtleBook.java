@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -56,10 +57,15 @@ public class SemtleBook {
 
     public SemtleBookDto toDto() {
         return SemtleBookDto.builder()
+                .bookId(bookId)
                 .bookName(bookName)
                 .bookAuthor(bookAuthor)
                 .bookImage(bookImage)
                 .bookCount(bookCount)
                 .status(status).build();
+    }
+
+    public void setSemtleUser(SemtleUser semtleUser) {
+        this.semtleUser = semtleUser;
     }
 }

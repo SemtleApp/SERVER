@@ -51,7 +51,7 @@ public class SemtlePost extends BaseTimeEntity {
     }
 
     public void setSemtleUser(SemtleUser semtleUser) {
-        this. semtleUser = semtleUser;
+        this.semtleUser = semtleUser;
     }
 
 
