@@ -2,6 +2,7 @@ package com.semtleapp.semtleapp.semtleuser.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
+import com.semtleapp.semtleapp.semtlebook.entity.SemtleBook;
 import com.semtleapp.semtleapp.semtlepost.entity.SemtlePost;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import lombok.Builder;
@@ -44,6 +45,14 @@ public class SemtleUser extends BaseTimeEntity implements UserDetails {
     @JsonManagedReference
     private List<SemtlePost> semtlePostList = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "semtleUser",
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            orphanRemoval = true
+    )
+    @JsonManagedReference
+    private List<SemtleBook> semtleBookList = new ArrayList<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -78,11 +87,12 @@ public class SemtleUser extends BaseTimeEntity implements UserDetails {
     }
 
     @Builder
-    public SemtleUser(String email, String password, String role, List<SemtlePost> semtlePostList) {
+    public SemtleUser(String email, String password, String role, List<SemtlePost> semtlePostList, List<SemtleBook> semtleBookList) {
         this.email = email;
         this.password = password;
         this.role = role;
         this.semtlePostList = semtlePostList;
+        this.semtleBookList = semtleBookList;
     }
 
     public SemtleUserDto toDto() {
