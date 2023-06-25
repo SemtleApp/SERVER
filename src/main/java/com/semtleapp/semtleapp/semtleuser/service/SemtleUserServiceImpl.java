@@ -31,6 +31,8 @@ public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsServ
         semtleUserRepository.findByEmail(semtleUserDto.getEmail()).ifPresent(e -> {
             throw new CustomException(ErrorCode.REGISTERED_EMAIL);
         });
+
+
         SemtleUser user = semtleUserRepository.save(semtleUserDto.toEntity());
 
         return user.toDto();
