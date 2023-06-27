@@ -99,7 +99,8 @@ public class SemtleUser extends BaseTimeEntity implements UserDetails {
         return SemtleUserDto.builder()
                 .email(email)
                 .password(password)
-                .role(role).build();
+                //.role(role)
+                .build();
     }
 
     public void addPost(SemtlePost semtlePost) {
