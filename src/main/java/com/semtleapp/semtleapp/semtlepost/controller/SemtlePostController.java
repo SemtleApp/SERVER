@@ -24,5 +24,4 @@ public class SemtlePostController {
         //principal.getName() 하면 시큐리티에서 들어온 회원의 이매일을 가지고옴.
         return new CustomResponse.ResponseMap(200, "data", semtlePostService.create(principal.getName(), semtlePostDto, files));
     }
-
 }

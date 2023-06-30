@@ -38,6 +38,11 @@ public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsServ
         return user.toDto();
     }
 
+    @Override
+    public SemtleUserDto nowUser(String email) {
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
+        return new SemtleUserDto(semtleUser.getEmail(), semtleUser.getPassword());
+    }
 
 
 }
