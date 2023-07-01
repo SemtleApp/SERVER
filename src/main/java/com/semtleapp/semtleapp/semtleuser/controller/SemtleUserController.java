@@ -47,7 +47,7 @@ public class SemtleUserController {
     @ApiOperation(value = "현재 유저 조회", notes = "현재 유저 조회, 쿼리스트링 입력 필요 없음")
     @GetMapping()
     public ApiResponse<SemtleUserDto> nowUser(Principal principal){
-        //principal.getName() 하면 시큐리티에서 들어온 회원의 이매일을 가지고옴.
+        //principal.getName() 하면 시큐리티에서 들어온 회원의 이메일을 가지고옴.
         //TODO 예외처리 추가 예정
         return new ApiResponse<>(semtleUserService.nowUser(principal.getName()));
     }
