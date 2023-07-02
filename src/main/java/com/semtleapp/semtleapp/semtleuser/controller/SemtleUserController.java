@@ -2,6 +2,7 @@ package com.semtleapp.semtleapp.semtleuser.controller;
 
 import com.semtleapp.semtleapp.global.entity.ApiResponse;
 import com.semtleapp.semtleapp.global.entity.CustomResponse;
+import com.semtleapp.semtleapp.global.exception.CustomException;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import com.semtleapp.semtleapp.global.jwt.JwtService;
 import com.semtleapp.semtleapp.semtleuser.dto.Token;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+
+import static com.semtleapp.semtleapp.global.exception.ErrorCode.BAD_REQUEST;
 
 @RequiredArgsConstructor
 @RestController
@@ -49,6 +52,10 @@ public class SemtleUserController {
     public ApiResponse<SemtleUserDto> nowUser(Principal principal){
         //principal.getName() 하면 시큐리티에서 들어온 회원의 이메일을 가지고옴.
         //TODO 예외처리 추가 예정
+
+        if(principal.getName() ==  null)
+            throw new CustomException(BAD_REQUEST);
+
         return new ApiResponse<>(semtleUserService.nowUser(principal.getName()));
     }
 }
