@@ -40,4 +40,13 @@ public class testController {
         return new ApiResponse<>("test 성공");
     }
 
+    // ApiResponse<SemtlePostReq.NewPostReq>
+
+    //getBookList
+    //동사+명사
+
+    //postBook
+    //GetMapping + 목적어
+
+
 }

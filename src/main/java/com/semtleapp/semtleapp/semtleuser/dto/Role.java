@@ -14,6 +14,8 @@ public enum Role {
     ROLE_DSEM("ROLE_DSEM"), //홍보
     ROLE_ESEM("ROLE_ESEM"), //스터디
     ROLE_USER("ROLE_USER"); //일반 유저
+
+
     private String value;
 
     @JsonCreator
