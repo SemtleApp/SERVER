@@ -2,8 +2,6 @@ package com.semtleapp.semtleapp.semtlestudy.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.SemtleStudyPostDto;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,20 +36,6 @@ public class SemtleStudyPost extends BaseTimeEntity {
         this.postId = postId;
         this.title = title;
         this.content = content;
-        this.semtleUser = semtleUser;
-    }
-
-    public SemtleStudyPostDto toDto() {
-        return SemtleStudyPostDto.builder()
-                .postId(postId)
-                .title(title)
-                .content(content)
-                .semtleUserDto(semtleUser.toDto())
-                .createdDate(getCreatedDate())
-                .updatedDate(getUpdatedDate()).build();
-    }
-
-    public void setSemtleUser(SemtleUser semtleUser) {
         this.semtleUser = semtleUser;
     }
 

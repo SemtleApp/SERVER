@@ -16,11 +16,4 @@ public class RegisterStudyPostReqDto {
     private String content;
     private List<PhotoDto> photoDtoList;
 
-    public SemtleStudyPost toEntity() {
-        return SemtleStudyPost.builder()
-                .title(title)
-                .content(content)
-                .build();
-    }
-
 }

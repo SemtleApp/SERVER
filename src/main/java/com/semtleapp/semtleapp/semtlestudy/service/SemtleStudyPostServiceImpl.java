@@ -1,11 +1,10 @@
 package com.semtleapp.semtleapp.semtlestudy.service;
 
-import com.semtleapp.semtleapp.file.entity.PhotoDto;
 import com.semtleapp.semtleapp.file.entity.PhotoType;
 import com.semtleapp.semtleapp.file.service.FileUserService;
+import com.semtleapp.semtleapp.semtlestudy.convertor.SemtleStudyPostConvertor;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostResDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.SemtleStudyPostDto;
 import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyPost;
 import com.semtleapp.semtleapp.semtlestudy.repository.SemtleStudyPostRepository;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
@@ -29,17 +28,17 @@ public class SemtleStudyPostServiceImpl implements SemtleStudyPostService{
 
     @Override
     public RegisterStudyPostResDto registerStudyPost(String email, RegisterStudyPostReqDto registerStudyPostReqDto, List<MultipartFile> files) {
-        SemtleStudyPost semtleStudyPost = registerStudyPostReqDto.toEntity();
-        semtleStudyPost.setSemtleUser(semtleUserRepository.findByEmail(email).get());
-        SemtleStudyPostDto res_semtleStudyPostDto = semtleStudyPostRepository.save(semtleStudyPost).toDto();
-        uploadPhoto(files, res_semtleStudyPostDto);
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
+        SemtleStudyPost semtleStudyPost = SemtleStudyPostConvertor.registerStudyPost(semtleUser, registerStudyPostReqDto);
+        SemtleStudyPost saveSemtleStudyPost = semtleStudyPostRepository.save(semtleStudyPost);
+        uploadPhotos(files, saveSemtleStudyPost);
         return RegisterStudyPostResDto.builder().message("스터디글이 등록되었습니다").build();
     }
 
-    private void uploadPhoto(List<MultipartFile> files, SemtleStudyPostDto res_semtleStudyPostDto) {
+    private void uploadPhotos(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {
         if(files != null) {
             try {
-                fileUserService.saveFile(files, PhotoType.STUDY, res_semtleStudyPostDto.getPostId());
+                fileUserService.saveFile(files, PhotoType.STUDY, saveSemtleStudyPost.getPostId());
             } catch (IOException e) {
                 e.printStackTrace();
             }
