@@ -14,6 +14,7 @@ public class RegisterStudyPostReqDto {
 
     private String title;
     private String content;
+    private String language;
     private List<PhotoDto> photoDtoList;
 
 }

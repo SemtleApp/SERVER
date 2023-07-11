@@ -10,6 +10,7 @@ public class SemtleStudyPostConvertor {
         return SemtleStudyPost.builder()
                 .title(registerStudyPostReqDto.getTitle())
                 .content(registerStudyPostReqDto.getContent())
+                .language(registerStudyPostReqDto.getLanguage())
                 .semtleUser(semtleUser)
                 .build();
     }
