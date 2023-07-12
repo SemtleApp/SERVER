@@ -12,9 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 public class RegisterStudyPostReqDto {
 
+    private Long studyId;
     private String title;
     private String content;
-    private String language;
     private List<PhotoDto> photoDtoList;
 
 }

@@ -5,7 +5,7 @@ import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostResDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomReqDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomResDto;
-import com.semtleapp.semtleapp.semtlestudy.service.SemtleStudyPostService;
+import com.semtleapp.semtleapp.semtlestudy.service.SemtleStudyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -23,20 +23,20 @@ import java.util.List;
 @RequestMapping("/study")
 public class SemtleStudyController {
 
-    private final SemtleStudyPostService semtleStudyPostService;
+    private final SemtleStudyService semtleStudyService;
 
     @ApiOperation(value = "스터디룸 글작성", notes = "스터디룸 글작성")
     @PreAuthorize("hasAnyRole('ESEM', 'ADMIN', 'ASEM', 'BSEM', 'CSEM', 'DSEM')")
     @PostMapping("/register")
     public ApiResponse<RegisterStudyPostResDto> registerStudyPost(Principal principal, @RequestPart(value = "file", required = false) List<MultipartFile> files, @RequestPart(value = "registerStudyPostReqDto") RegisterStudyPostReqDto registerStudyPostReqDto) throws Exception {
-        return new ApiResponse<>(semtleStudyPostService.registerStudyPost(principal.getName(), registerStudyPostReqDto, files));
+        return new ApiResponse<>(semtleStudyService.registerStudyPost(principal.getName(), registerStudyPostReqDto, files));
     }
 
     @ApiOperation(value = "스터디룸 생성", notes = "스터디룸 생성")
     @PreAuthorize("hasAnyRole('ESEM', 'ADMIN', 'ASEM')")
     @PostMapping("/room")
     public ApiResponse<RegisterStudyRoomResDto> registerStudyRoom(Principal principal, @RequestBody RegisterStudyRoomReqDto registerStudyRoomReqDto) {
-        return new ApiResponse<>(semtleStudyPostService.registerStudyRoom(principal.getName(), registerStudyRoomReqDto));
+        return new ApiResponse<>(semtleStudyService.registerStudyRoom(principal.getName(), registerStudyRoomReqDto));
     }
 
 }

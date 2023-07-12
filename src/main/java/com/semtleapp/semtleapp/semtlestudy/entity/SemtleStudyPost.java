@@ -25,8 +25,10 @@ public class SemtleStudyPost extends BaseTimeEntity {
     @JsonBackReference
     private SemtleUser semtleUser;
 
-    @Column(name = "language")
-    private String language;
+    @ManyToOne
+    @JoinColumn(name = "study_id")
+    @JsonBackReference
+    private SemtleStudyRoom semtleStudyRoom;
 
     @Column(name = "title")
     private String title;
@@ -35,12 +37,12 @@ public class SemtleStudyPost extends BaseTimeEntity {
     private String content;
 
     @Builder
-    public SemtleStudyPost(Long postId, String title, String content, String language, SemtleUser semtleUser) {
+    public SemtleStudyPost(Long postId, String title, String content, String language, SemtleUser semtleUser, SemtleStudyRoom semtleStudyRoom) {
         this.postId = postId;
         this.title = title;
         this.content = content;
-        this.language = language;
         this.semtleUser = semtleUser;
+        this.semtleStudyRoom = semtleStudyRoom;
     }
 
 }

@@ -6,14 +6,14 @@ import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyPost;
 import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyRoom;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 
-public class SemtleStudyPostConvertor {
+public class SemtleStudyConvertor {
 
-    public static SemtleStudyPost registerStudyPost(SemtleUser semtleUser, RegisterStudyPostReqDto registerStudyPostReqDto) {
+    public static SemtleStudyPost registerStudyPost(SemtleUser semtleUser, SemtleStudyRoom semtleStudyRoom, RegisterStudyPostReqDto registerStudyPostReqDto) {
         return SemtleStudyPost.builder()
                 .title(registerStudyPostReqDto.getTitle())
                 .content(registerStudyPostReqDto.getContent())
-                .language(registerStudyPostReqDto.getLanguage())
                 .semtleUser(semtleUser)
+                .semtleStudyRoom(semtleStudyRoom)
                 .build();
     }
 
