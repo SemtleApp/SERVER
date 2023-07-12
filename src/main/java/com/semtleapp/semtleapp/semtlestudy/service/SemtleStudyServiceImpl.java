@@ -2,7 +2,7 @@ package com.semtleapp.semtleapp.semtlestudy.service;
 
 import com.semtleapp.semtleapp.file.entity.PhotoType;
 import com.semtleapp.semtleapp.file.service.FileUserService;
-import com.semtleapp.semtleapp.semtlestudy.convertor.SemtleStudyPostConvertor;
+import com.semtleapp.semtleapp.semtlestudy.convertor.SemtleStudyConvertor;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostResDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomReqDto;
@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class SemtleStudyPostServiceImpl implements SemtleStudyPostService{
+public class SemtleStudyServiceImpl implements SemtleStudyService {
 
     private final SemtleStudyPostRepository semtleStudyPostRepository;
     private final FileUserService fileUserService;
@@ -34,7 +34,8 @@ public class SemtleStudyPostServiceImpl implements SemtleStudyPostService{
     @Override
     public RegisterStudyPostResDto registerStudyPost(String email, RegisterStudyPostReqDto registerStudyPostReqDto, List<MultipartFile> files) {
         SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
-        SemtleStudyPost semtleStudyPost = SemtleStudyPostConvertor.registerStudyPost(semtleUser, registerStudyPostReqDto);
+        SemtleStudyRoom semtleStudyRoom = semtleStudyRoomRepository.findById(registerStudyPostReqDto.getStudyId()).get();
+        SemtleStudyPost semtleStudyPost = SemtleStudyConvertor.registerStudyPost(semtleUser, semtleStudyRoom, registerStudyPostReqDto);
         SemtleStudyPost saveSemtleStudyPost = semtleStudyPostRepository.save(semtleStudyPost);
         uploadPhotos(files, saveSemtleStudyPost);
         return RegisterStudyPostResDto.builder().message("스터디글이 등록되었습니다").build();
@@ -43,7 +44,7 @@ public class SemtleStudyPostServiceImpl implements SemtleStudyPostService{
     @Override
     public RegisterStudyRoomResDto registerStudyRoom(String email, RegisterStudyRoomReqDto registerStudyRoomReqDto) {
         SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
-        SemtleStudyRoom semtleStudyRoom = SemtleStudyPostConvertor.registerStudyRoom(semtleUser, registerStudyRoomReqDto);
+        SemtleStudyRoom semtleStudyRoom = SemtleStudyConvertor.registerStudyRoom(semtleUser, registerStudyRoomReqDto);
         semtleStudyRoomRepository.save(semtleStudyRoom);
         return RegisterStudyRoomResDto.builder().message("스터디룸이 생성되었습니다").build();
     }
