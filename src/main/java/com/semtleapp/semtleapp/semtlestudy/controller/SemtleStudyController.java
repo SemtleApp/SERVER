@@ -3,6 +3,8 @@ package com.semtleapp.semtleapp.semtlestudy.controller;
 import com.semtleapp.semtleapp.global.entity.ApiResponse;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostResDto;
+import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomReqDto;
+import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomResDto;
 import com.semtleapp.semtleapp.semtlestudy.service.SemtleStudyPostService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +30,13 @@ public class SemtleStudyController {
     @PostMapping("/register")
     public ApiResponse<RegisterStudyPostResDto> registerStudyPost(Principal principal, @RequestPart(value = "file", required = false) List<MultipartFile> files, @RequestPart(value = "registerStudyPostReqDto") RegisterStudyPostReqDto registerStudyPostReqDto) throws Exception {
         return new ApiResponse<>(semtleStudyPostService.registerStudyPost(principal.getName(), registerStudyPostReqDto, files));
+    }
+
+    @ApiOperation(value = "스터디룸 생성", notes = "스터디룸 생성")
+    @PreAuthorize("hasAnyRole('ESEM', 'ADMIN', 'ASEM')")
+    @PostMapping("/room")
+    public ApiResponse<RegisterStudyRoomResDto> registerStudyRoom(Principal principal, @RequestBody RegisterStudyRoomReqDto registerStudyRoomReqDto) {
+        return new ApiResponse<>(semtleStudyPostService.registerStudyRoom(principal.getName(), registerStudyRoomReqDto));
     }
 
 }
