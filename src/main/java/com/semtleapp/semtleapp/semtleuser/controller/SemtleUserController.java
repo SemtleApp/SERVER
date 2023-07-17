@@ -5,6 +5,7 @@ import com.semtleapp.semtleapp.global.entity.CustomResponse;
 import com.semtleapp.semtleapp.global.exception.CustomException;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import com.semtleapp.semtleapp.global.jwt.JwtService;
+import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserReq;
 import com.semtleapp.semtleapp.semtleuser.dto.Token;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import com.semtleapp.semtleapp.semtleuser.service.SemtleUserService;
@@ -33,7 +34,8 @@ public class SemtleUserController {
 
     @ApiOperation(value = "회원가입", notes = "회원가입")
     @PostMapping("/signup")
-    public ApiResponse<SemtleUserDto> signup(@RequestBody SemtleUserDto semtleUserDto) {
+    public ApiResponse<SemtleUserDto> signup(@RequestBody SemtleUserReq.Login semtleUserDto) {
+        //TODO DTO 수정하기
         semtleUserDto.setPassword(passwordEncoder.encode(semtleUserDto.getPassword()));
 
         return new ApiResponse<>(semtleUserService.create(semtleUserDto));
@@ -43,7 +45,7 @@ public class SemtleUserController {
     @PostMapping("/login")
     public ApiResponse<Token> login(HttpServletRequest request, @RequestBody SemtleUserDto semtleUserDto,
                                     @RequestHeader(value = "User-Agent", required = false) String userAgent) {
-
+    //TODO DTO 수정하기
         return new ApiResponse<>(jwtService.login(request, semtleUserDto, userAgent));
     }
 
