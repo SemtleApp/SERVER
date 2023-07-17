@@ -1,6 +1,7 @@
 package com.semtleapp.semtleapp.semtleuser.service;
 
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
+import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserReq;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import com.semtleapp.semtleapp.global.exception.CustomException;
 import com.semtleapp.semtleapp.global.exception.ErrorCode;
@@ -27,13 +28,13 @@ public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsServ
     }
 
     @Override
-    public SemtleUserDto create(SemtleUserDto semtleUserDto) {
-        semtleUserRepository.findByEmail(semtleUserDto.getEmail()).ifPresent(e -> {
+    public SemtleUserDto create(SemtleUserReq.Login loginReq) {
+        semtleUserRepository.findByEmail(loginReq.getEmail()).ifPresent(e -> {
             throw new CustomException(ErrorCode.REGISTERED_EMAIL);
         });
 
 
-        SemtleUser user = semtleUserRepository.save(semtleUserDto.toEntity());
+        SemtleUser user = semtleUserRepository.save(loginReq.toEntity());
 
         return user.toDto();
     }
