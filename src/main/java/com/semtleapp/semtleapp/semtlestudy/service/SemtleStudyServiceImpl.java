@@ -3,12 +3,11 @@ package com.semtleapp.semtleapp.semtlestudy.service;
 import com.semtleapp.semtleapp.file.entity.PhotoType;
 import com.semtleapp.semtleapp.file.service.FileUserService;
 import com.semtleapp.semtleapp.semtlestudy.convertor.SemtleStudyConvertor;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostResDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomReqDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomResDto;
+import com.semtleapp.semtleapp.semtlestudy.dto.*;
+import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyBelong;
 import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyPost;
 import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyRoom;
+import com.semtleapp.semtleapp.semtlestudy.repository.SemtleStudyBelongRepository;
 import com.semtleapp.semtleapp.semtlestudy.repository.SemtleStudyPostRepository;
 import com.semtleapp.semtleapp.semtlestudy.repository.SemtleStudyRoomRepository;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
@@ -19,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +30,7 @@ public class SemtleStudyServiceImpl implements SemtleStudyService {
     private final FileUserService fileUserService;
     private final SemtleUserRepository semtleUserRepository;
     private final SemtleStudyRoomRepository semtleStudyRoomRepository;
+    private final SemtleStudyBelongRepository semtleStudyBelongRepository;
 
     @Override
     public RegisterStudyPostResDto registerStudyPost(String email, RegisterStudyPostReqDto registerStudyPostReqDto, List<MultipartFile> files) {
@@ -46,7 +47,24 @@ public class SemtleStudyServiceImpl implements SemtleStudyService {
         SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
         SemtleStudyRoom semtleStudyRoom = SemtleStudyConvertor.registerStudyRoom(semtleUser, registerStudyRoomReqDto);
         semtleStudyRoomRepository.save(semtleStudyRoom);
+        SemtleStudyBelong semtleStudyBelong = SemtleStudyConvertor.belongStudyRoom(semtleUser, semtleStudyRoom);
+        semtleStudyBelongRepository.save(semtleStudyBelong);
         return RegisterStudyRoomResDto.builder().message("스터디룸이 생성되었습니다").build();
+    }
+
+    @Override
+    public List<GetBelongAndPostStudyResDto.BelongStudyList> getBelongStudy(String email) {
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
+        List<GetBelongAndPostStudyResDto.BelongStudyList> postsList = new ArrayList<>();
+        List<SemtleStudyRoomRepository.GetAllStudyPost> posts = semtleStudyRoomRepository.getStudyRoomList(semtleUser.getUserId());
+        posts.forEach(
+                result -> postsList.add(
+                        new GetBelongAndPostStudyResDto.BelongStudyList(
+                                result.getRoomName()
+                        )
+                )
+        );
+        return postsList;
     }
 
     private void uploadPhotos(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {

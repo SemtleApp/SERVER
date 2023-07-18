@@ -2,6 +2,7 @@ package com.semtleapp.semtleapp.semtlestudy.convertor;
 
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomReqDto;
+import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyBelong;
 import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyPost;
 import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyRoom;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
@@ -23,4 +24,12 @@ public class SemtleStudyConvertor {
                 .semtleUser(semtleUser)
                 .build();
     }
+
+    public static SemtleStudyBelong belongStudyRoom(SemtleUser semtleUser, SemtleStudyRoom semtleStudyRoom) {
+        return SemtleStudyBelong.builder()
+                .semtleUser(semtleUser)
+                .semtleStudyRoom(semtleStudyRoom)
+                .build();
+    }
+
 }

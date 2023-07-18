@@ -1,10 +1,7 @@
 package com.semtleapp.semtleapp.semtlestudy.controller;
 
 import com.semtleapp.semtleapp.global.entity.ApiResponse;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostResDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomReqDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomResDto;
+import com.semtleapp.semtleapp.semtlestudy.dto.*;
 import com.semtleapp.semtleapp.semtlestudy.service.SemtleStudyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -39,4 +36,9 @@ public class SemtleStudyController {
         return new ApiResponse<>(semtleStudyService.registerStudyRoom(principal.getName(), registerStudyRoomReqDto));
     }
 
+    @ApiOperation(value = "소속 스터디룸 조회", notes = "소속 스터디룸 조회")
+    @GetMapping("/belong")
+    public ApiResponse<List<GetBelongAndPostStudyResDto.BelongStudyList>> getBelongStudy(Principal principal) throws Exception{
+        return new ApiResponse<>(semtleStudyService.getBelongStudy(principal.getName()));
+    }
 }
