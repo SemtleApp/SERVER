@@ -55,16 +55,33 @@ public class SemtleStudyServiceImpl implements SemtleStudyService {
     @Override
     public List<GetBelongAndPostStudyResDto.BelongStudyList> getBelongStudy(String email) {
         SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
-        List<GetBelongAndPostStudyResDto.BelongStudyList> postsList = new ArrayList<>();
-        List<SemtleStudyRoomRepository.GetAllStudyPost> posts = semtleStudyRoomRepository.getStudyRoomList(semtleUser.getUserId());
-        posts.forEach(
-                result -> postsList.add(
+        List<GetBelongAndPostStudyResDto.BelongStudyList> belongList = new ArrayList<>();
+        List<SemtleStudyRoomRepository.GetBelongStudyList> belongStudyLists = semtleStudyRoomRepository.getBelongStudy(semtleUser.getUserId());
+        belongStudyLists.forEach(
+                result -> belongList.add(
                         new GetBelongAndPostStudyResDto.BelongStudyList(
                                 result.getRoomName()
                         )
                 )
         );
-        return postsList;
+        return belongList;
+    }
+
+    @Override
+    public List<GetBelongAndPostStudyResDto.StudyPostList> getStudyPost(String roomName) {
+        List<GetBelongAndPostStudyResDto.StudyPostList> postList = new ArrayList<>();
+        List<SemtleStudyPostRepository.GetStudyPostList> studyPostLists = semtleStudyPostRepository.getStudyPost(roomName);
+        studyPostLists.forEach(
+                result -> postList.add(
+                        new GetBelongAndPostStudyResDto.StudyPostList(
+                                result.getTitle(),
+                                result.getEmail(),
+                                result.getCreatedDate(),
+                                result.getIsFileCheck()
+                        )
+                )
+        );
+        return postList;
     }
 
     private void uploadPhotos(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {
