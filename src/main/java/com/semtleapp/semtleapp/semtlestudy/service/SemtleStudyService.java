@@ -12,4 +12,6 @@ public interface SemtleStudyService {
     RegisterStudyRoomResDto registerStudyRoom(String email, RegisterStudyRoomReqDto registerStudyRoomReqDto);
 
     List<GetBelongAndPostStudyResDto.BelongStudyList> getBelongStudy(String email);
+
+    List<GetBelongAndPostStudyResDto.StudyPostList> getStudyPost(String roomName);
 }

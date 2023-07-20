@@ -38,7 +38,13 @@ public class SemtleStudyController {
 
     @ApiOperation(value = "소속 스터디룸 조회", notes = "소속 스터디룸 조회")
     @GetMapping("/belong")
-    public ApiResponse<List<GetBelongAndPostStudyResDto.BelongStudyList>> getBelongStudy(Principal principal) throws Exception{
+    public ApiResponse<List<GetBelongAndPostStudyResDto.BelongStudyList>> getBelongStudy(Principal principal) throws Exception {
         return new ApiResponse<>(semtleStudyService.getBelongStudy(principal.getName()));
+    }
+
+    @ApiOperation(value = "스터디룸 게시글 전체 조회", notes = "소속 스터디룸 게시글 전체조회")
+    @GetMapping("/posts")
+    public ApiResponse<List<GetBelongAndPostStudyResDto.StudyPostList>> getStudyPost(@RequestParam String roomName) throws Exception {
+        return new ApiResponse<>(semtleStudyService.getStudyPost(roomName));
     }
 }

@@ -11,7 +11,7 @@ public class SemtleUserReq {
     @AllArgsConstructor
     @Getter
     @Setter
-    public class Login {
+    public static class Login {
         private String email;
         //private String role;
         private String password;
