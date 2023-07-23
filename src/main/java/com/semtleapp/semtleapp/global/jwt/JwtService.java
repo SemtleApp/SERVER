@@ -19,8 +19,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class JwtService {
-    private final RefreshTokenRepository refreshTokenRepository;
-    private final AuthenticationManager authenticationManager;
+
     private final JwtProvider jwtProvider;
 
 //    @Transactional

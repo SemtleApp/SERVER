@@ -28,7 +28,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsService {
+public class SemtleUserServiceImpl implements SemtleUserService {
     private final SemtleUserRepository semtleUserRepository;
     private final SemtleUserInfoRepository  semtleUserInfoRepository;
     private final AuthenticationManager authenticationManager;
@@ -37,13 +37,6 @@ public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsServ
     private final PasswordEncoder passwordEncoder;
 
 
-
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return semtleUserRepository.findByEmail(username).orElseThrow(
-                () -> new RuntimeException());
-    }
 
     @Transactional
     @Override
@@ -55,14 +48,16 @@ public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsServ
         SemtleUser user = SemtleUser.builder()
                 .email(signupDto.getEmail())
                 .password(passwordEncoder.encode(signupDto.getPassword()))
+                .role("ROLE_USER")
                 .build();
         semtleUserRepository.save(user);
 
         SemtleUserInfo userInfo = SemtleUserInfo.builder()
+                .userId(user.getUserId())
                 .name(signupDto.getName())
                 .nickname(signupDto.getNickname())
                 .grade(signupDto.getGrade())
-                .studentId(signupDto.getGrade())
+                .studentId(signupDto.getStudentId())
                 .phone(signupDto.getPhone())
                 .build();
         semtleUserInfoRepository.save(userInfo);
@@ -81,9 +76,9 @@ public class SemtleUserServiceImpl implements SemtleUserService, UserDetailsServ
 
     @Override
     public Token login(SemtleUserReq.LoginDto loginDto, String userAgent) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
-        );
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
+//        );
 
         String email = loginDto.getEmail();
 

@@ -16,7 +16,7 @@ public class SemtleUserRes {
         private String name;
         private String nickname;
         private int grade;
-        private int studentId;
+        private String studentId;
         private String phone;
 
         public static UserDetail toDto(SemtleUser user, SemtleUserInfo userInfo){
