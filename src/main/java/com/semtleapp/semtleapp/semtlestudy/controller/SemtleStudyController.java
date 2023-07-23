@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 @RestController
-@Api(tags={"02.Study❤️"})
+@Api(tags={"02.Study🧡"})
 @RequestMapping("/study")
 public class SemtleStudyController {
 

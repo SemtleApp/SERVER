@@ -33,7 +33,7 @@ public class SemtleUserInfo {
     private int grade;
 
     @Column(name = "student_id")
-    private int studentId;
+    private String studentId;
 
     @Column(name = "phone")
     private String phone;
