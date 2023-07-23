@@ -5,27 +5,33 @@ import lombok.*;
 
 public class SemtleUserReq {
 
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    public static class SignupDto {
+        private String email; //아이디
+        private String password;
+        private String name;
+        private String nickname;
+        private int grade;
+        private String studentId;
+        private String phone;
+    }
+
 
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
     @Setter
-    public class Login {
+    public static class LoginDto {
         private String email;
-        //private String role;
         private String password;
-
-
-        public SemtleUser toEntity() {
-            return SemtleUser.builder()
-                    .email(email)
-                    .password(password)
-                    .role("ROLE_USER")
-                    .build();
-        }
-
     }
+
+
 
 
 }

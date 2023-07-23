@@ -23,43 +23,43 @@ public class JwtService {
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
 
-    @Transactional
-    public Token login(HttpServletRequest request, SemtleUserDto semtleUserDto, String userAgent) {
-        CustomResponse.ResponseMap result = null;
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(semtleUserDto.getEmail(), semtleUserDto.getPassword())
-        );
-
-        return getLoginToken(semtleUserDto.getEmail(), userAgent);
-
-    }
-
-    private Token getLoginToken(String email, String userAgent) {
-        Token token = jwtProvider.createToken(email);
-        //RefreshToken을 DB에 저장
-        RefreshToken refreshToken = RefreshToken.builder()
-                .keyId(token.getKey())
-                .refreshToken(token.getRefreshToken())
-                .userAgent(userAgent).build();
-
-        Optional<RefreshToken> tokenOptional = refreshTokenRepository.findByKeyId(email);
-
-        //refreshToken이 있는지 검사
-        if(tokenOptional.isEmpty()) {
-            refreshTokenRepository.save(
-                    RefreshToken.builder()
-                            .keyId(token.getKey())
-                            .refreshToken(token.getRefreshToken())
-                            .userAgent(userAgent).build());
-        }else {
-            //refreshToken이 있으면, 업데이트
-            refreshToken.update(tokenOptional.get().getRefreshToken(), tokenOptional.get().getUserAgent());
-
-        }
-
-
-        return token;
-    }
+//    @Transactional
+//    public Token login(HttpServletRequest request, SemtleUserDto semtleUserDto, String userAgent) {
+//        CustomResponse.ResponseMap result = null;
+//        authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(semtleUserDto.getEmail(), semtleUserDto.getPassword())
+//        );
+//
+//        return getLoginToken(semtleUserDto.getEmail(), userAgent);
+//
+//    }
+//
+//    private Token getLoginToken(String email, String userAgent) {
+//        Token token = jwtProvider.createToken(email);
+//        //RefreshToken을 DB에 저장
+//        RefreshToken refreshToken = RefreshToken.builder()
+//                .keyId(token.getKey())
+//                .refreshToken(token.getRefreshToken())
+//                .userAgent(userAgent).build();
+//
+//        Optional<RefreshToken> tokenOptional = refreshTokenRepository.findByKeyId(email);
+//
+//        //refreshToken이 있는지 검사
+//        if(tokenOptional.isEmpty()) {
+//            refreshTokenRepository.save(
+//                    RefreshToken.builder()
+//                            .keyId(token.getKey())
+//                            .refreshToken(token.getRefreshToken())
+//                            .userAgent(userAgent).build());
+//        }else {
+//            //refreshToken이 있으면, 업데이트
+//            refreshToken.update(tokenOptional.get().getRefreshToken(), tokenOptional.get().getUserAgent());
+//
+//        }
+//
+//
+//        return token;
+//    }
 
     public String getNewAccessToken(RefreshToken refreshToken) {
         if(refreshToken.getRefreshToken() != null)
