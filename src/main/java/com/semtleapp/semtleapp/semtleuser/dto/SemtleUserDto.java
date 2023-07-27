@@ -26,7 +26,7 @@ public class SemtleUserDto {
         return SemtleUser.builder()
                 .email(email)
                 .password(password)
-                .role(USER)
+                .role("ROLE_USER")
                 .build();
     }
 
