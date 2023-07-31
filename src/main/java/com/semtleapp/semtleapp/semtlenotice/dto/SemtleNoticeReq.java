@@ -18,6 +18,16 @@ public class SemtleNoticeReq {
         private List<PhotoDto> photoDtoList;
     }
 
-
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    public static class PatchNoticeReq {
+        private Long postId;
+        private String title;
+        private String content;
+        private List<PhotoDto> photoDtoList;
+    }
 
 }
