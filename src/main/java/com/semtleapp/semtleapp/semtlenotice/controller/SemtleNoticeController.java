@@ -6,8 +6,6 @@ import com.semtleapp.semtleapp.global.jwt.JwtService;
 import com.semtleapp.semtleapp.semtlenotice.dto.SemtleNoticeReq;
 import com.semtleapp.semtleapp.semtlenotice.dto.SemtleNoticeRes;
 import com.semtleapp.semtleapp.semtlenotice.service.SemtleNoticeService;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostResDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +42,17 @@ public class SemtleNoticeController {
     public ApiResponse<SemtleNoticeRes.PostNoticeRes> modifyNoticePost(Principal principal, @RequestPart(value = "file", required = false) List<MultipartFile> files, @RequestPart(value = "patchNoticeReq") SemtleNoticeReq.PatchNoticeReq patchNoticeReq) throws Exception {
         try{
             return new ApiResponse<>(semtleNoticeService.modifyNoticePost(principal.getName(), patchNoticeReq, files));
+        } catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "공지사항 글삭제", notes = "공지사항 글삭제")
+    @PreAuthorize("hasAnyRole('ADMIN','ASEM','DSEM')")
+    @DeleteMapping("/{postId}")
+    public ApiResponse<SemtleNoticeRes.PostNoticeRes> deleteNoticePost(Principal principal, @PathVariable(name = "postId") Long postId) throws Exception {
+        try{
+            return new ApiResponse<>(semtleNoticeService.deleteNoticePost(principal.getName(), postId));
         } catch(Exception e){
             throw new Exception(e.getMessage());
         }

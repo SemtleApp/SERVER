@@ -51,6 +51,19 @@ public class SemtleNoticeServiceImpl implements SemtleNoticeService {
         return SemtleNoticeRes.PostNoticeRes.builder().message("공지글이 수정되었습니다").build();
     }
 
+    @Override
+    public SemtleNoticeRes.PostNoticeRes deleteNoticePost(String email, Long postId) {
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
+        SemtleNotice semtleNotice = semtleNoticeRepository.findById(postId).get();
+        if(semtleUser.getUserId() == semtleNotice.getSemtleUser().getUserId()){
+            semtleNoticeRepository.deleteById(postId);
+            fileUserService.deleteFile(PhotoType.NOTICE, postId);
+        } else {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        }
+        return SemtleNoticeRes.PostNoticeRes.builder().message("공지글이 삭제되었습니다").build();
+    }
+
 
     private void uploadPhotos(List<MultipartFile> files, Long postId) {
         if(files != null) {
