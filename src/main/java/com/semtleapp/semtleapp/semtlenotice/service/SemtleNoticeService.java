@@ -9,5 +9,6 @@ import java.util.List;
 public interface SemtleNoticeService {
     SemtleNoticeRes.PostNoticeRes registerNoticePost(String email, SemtleNoticeReq.PostNoticeReq postNoticeReq, List<MultipartFile> files);
     SemtleNoticeRes.PostNoticeRes modifyNoticePost(String email, SemtleNoticeReq.PatchNoticeReq patchNoticeReq, List<MultipartFile> files);
+    SemtleNoticeRes.PostNoticeRes deleteNoticePost(String email, Long postId);
 
 }
