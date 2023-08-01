@@ -47,4 +47,11 @@ public class SemtleStudyController {
     public ApiResponse<List<GetBelongAndPostStudyResDto.StudyPostList>> getStudyPost(@RequestParam String roomName) throws Exception {
         return new ApiResponse<>(semtleStudyService.getStudyPost(roomName));
     }
+
+    @ApiOperation(value = "스터디룸 게시글 상세조회", notes = "소속 스터디룸 게시글 상세조회")
+    @GetMapping("/post/{postId}")
+    public ApiResponse<GetStudyPostDetailResDto.PostDetail> getStudyPostDetail(@PathVariable Long postId) throws Exception {
+        return new ApiResponse<>(semtleStudyService.getStudyPostDetail(postId));
+    }
+
 }

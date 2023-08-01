@@ -84,6 +84,15 @@ public class SemtleStudyServiceImpl implements SemtleStudyService {
         return postList;
     }
 
+    @Override
+    public GetStudyPostDetailResDto.PostDetail getStudyPostDetail(Long postId) {
+        SemtleStudyPostRepository.GetStudyPost studyPostDetail = semtleStudyPostRepository.getStudyPostDetail(postId);
+        List<SemtleStudyPostRepository.GetFileList> files = semtleStudyPostRepository.getfiles(postId);
+        GetStudyPostDetailResDto.PostDetail post = SemtleStudyConvertor.getfiles(studyPostDetail, files);
+        return post;
+
+    }
+
     private void uploadPhotos(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {
         if(files != null) {
             try {

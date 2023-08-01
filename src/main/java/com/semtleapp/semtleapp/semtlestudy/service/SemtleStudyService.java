@@ -14,4 +14,6 @@ public interface SemtleStudyService {
     List<GetBelongAndPostStudyResDto.BelongStudyList> getBelongStudy(String email);
 
     List<GetBelongAndPostStudyResDto.StudyPostList> getStudyPost(String roomName);
+
+    GetStudyPostDetailResDto.PostDetail getStudyPostDetail(Long postId);
 }
