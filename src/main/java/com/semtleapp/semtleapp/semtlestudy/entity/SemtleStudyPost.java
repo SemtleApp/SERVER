@@ -2,16 +2,19 @@ package com.semtleapp.semtleapp.semtlestudy.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
+import com.semtleapp.semtleapp.semtlestudy.dto.ModifyStudyPostReqDto;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@DynamicUpdate
 @Table(name = "semtle_study")
 public class SemtleStudyPost extends BaseTimeEntity {
 
@@ -43,6 +46,15 @@ public class SemtleStudyPost extends BaseTimeEntity {
         this.content = content;
         this.semtleUser = semtleUser;
         this.semtleStudyRoom = semtleStudyRoom;
+    }
+
+    public void updatePost(ModifyStudyPostReqDto modifyStudyPostReqDto, SemtleUser semtleUser) {
+
+        this.postId = modifyStudyPostReqDto.getPostId();
+        this.semtleUser = semtleUser;
+        this.title = modifyStudyPostReqDto.getTitle();
+        this.content = modifyStudyPostReqDto.getContent();
+
     }
 
 }

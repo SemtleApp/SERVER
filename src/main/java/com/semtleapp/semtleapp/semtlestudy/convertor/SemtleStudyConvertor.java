@@ -1,6 +1,7 @@
 package com.semtleapp.semtleapp.semtlestudy.convertor;
 
 import com.semtleapp.semtleapp.semtlestudy.dto.GetStudyPostDetailResDto;
+import com.semtleapp.semtleapp.semtlestudy.dto.ModifyStudyPostReqDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyPostReqDto;
 import com.semtleapp.semtleapp.semtlestudy.dto.RegisterStudyRoomReqDto;
 import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyBelong;
@@ -53,4 +54,5 @@ public class SemtleStudyConvertor {
                 .fileList(fileList)
                 .build();
     }
+
 }
