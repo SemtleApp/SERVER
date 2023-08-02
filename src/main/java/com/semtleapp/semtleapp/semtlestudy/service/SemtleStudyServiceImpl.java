@@ -101,12 +101,12 @@ public class SemtleStudyServiceImpl implements SemtleStudyService {
         SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
         SemtleStudyPost semtleStudyPost = semtleStudyPostRepository.findById(modifyStudyPostReqDto.getPostId()).
                 orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
-        if(semtleUser.getUserId().equals(semtleStudyPost.getSemtleUser().getUserId())) {
+        if(!semtleUser.getUserId().equals(semtleStudyPost.getSemtleUser().getUserId())) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        } else {
             semtleStudyPost.updatePost(modifyStudyPostReqDto, semtleUser);
             fileUserService.deleteFile(PhotoType.STUDY, semtleStudyPost.getPostId());
             uploadPhotos(files, semtleStudyPost);
-        } else {
-            throw new CustomException(ErrorCode.FORBIDDEN);
         }
         return ModifyStudyPostResDto.builder().message("게시글이 수정되었습니다").build();
     }
