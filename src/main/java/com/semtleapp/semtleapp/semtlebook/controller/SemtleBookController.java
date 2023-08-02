@@ -4,8 +4,6 @@ import com.semtleapp.semtleapp.global.entity.CustomResponse;
 import com.semtleapp.semtleapp.semtlebook.dto.SemtleBookDto;
 import com.semtleapp.semtleapp.semtlebook.service.SemtleBookService;
 import com.semtleapp.semtleapp.semtlebook.service.SemtleBookServiceImpl;
-import com.semtleapp.semtleapp.semtlepost.dto.SemtlePostDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
