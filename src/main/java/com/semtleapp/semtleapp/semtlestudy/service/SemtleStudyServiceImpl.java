@@ -100,7 +100,7 @@ public class SemtleStudyServiceImpl implements SemtleStudyService {
     public ModifyStudyPostResDto modifyStudyPost(String email, ModifyStudyPostReqDto modifyStudyPostReqDto, List<MultipartFile> files) {
         SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
         SemtleStudyPost semtleStudyPost = semtleStudyPostRepository.findById(modifyStudyPostReqDto.getPostId()).
-                orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND));
+                orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_POST));
         if(!semtleUser.getUserId().equals(semtleStudyPost.getSemtleUser().getUserId())) {
             throw new CustomException(ErrorCode.FORBIDDEN);
         } else {
@@ -109,6 +109,20 @@ public class SemtleStudyServiceImpl implements SemtleStudyService {
             uploadPhotos(files, semtleStudyPost);
         }
         return ModifyStudyPostResDto.builder().message("게시글이 수정되었습니다").build();
+    }
+
+    @Override
+    public DeleteStudyPostResDto deleteStudyPost(String email, Long postId) {
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
+        SemtleStudyPost semtleStudyPost = semtleStudyPostRepository.findById(postId).
+                orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_POST));
+        if(!semtleUser.getUserId().equals(semtleStudyPost.getSemtleUser().getUserId())) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        } else {
+            semtleStudyPostRepository.deleteById(postId);
+            fileUserService.deleteFile(PhotoType.STUDY, postId);
+        }
+        return DeleteStudyPostResDto.builder().message("게시글이 삭제되었습니다").build();
     }
 
     private void uploadPhotos(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {

@@ -18,4 +18,7 @@ public interface SemtleStudyService {
     GetStudyPostDetailResDto.PostDetail getStudyPostDetail(Long postId);
 
     ModifyStudyPostResDto modifyStudyPost(String email, ModifyStudyPostReqDto modifyStudyPostReqDto, List<MultipartFile> files);
+
+    DeleteStudyPostResDto deleteStudyPost(String email, Long postId);
+
 }
