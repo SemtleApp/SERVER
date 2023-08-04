@@ -60,4 +60,10 @@ public class SemtleStudyController {
         return new ApiResponse<>(semtleStudyService.modifyStudyPost(principal.getName(), modifyStudyPostReqDto, files));
     }
 
+    @ApiOperation(value = "스터디룸 게시글 삭제", notes = "스터디룸 게시글 삭제")
+    @DeleteMapping("/post/{postId}")
+    public ApiResponse<DeleteStudyPostResDto> deleteStudyPost(Principal principal, @PathVariable Long postId) throws Exception {
+        return new ApiResponse<>(semtleStudyService.deleteStudyPost(principal.getName(), postId));
+    }
+
 }
