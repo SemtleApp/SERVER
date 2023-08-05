@@ -1,8 +1,8 @@
-package com.semtleapp.semtleapp.semtlepost.entity;
+package com.semtleapp.semtleapp.semtlenotice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
-import com.semtleapp.semtleapp.semtlepost.dto.SemtlePostDto;
+import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyRoom;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,8 +13,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "semtle_post")
-public class SemtlePost extends BaseTimeEntity {
+@Table(name = "semtle_notice")
+public class SemtleNotice extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +26,7 @@ public class SemtlePost extends BaseTimeEntity {
     @JsonBackReference
     private SemtleUser semtleUser;
 
+
     @Column(name = "title")
     private String title;
 
@@ -33,26 +34,11 @@ public class SemtlePost extends BaseTimeEntity {
     private String content;
 
     @Builder
-    public SemtlePost(Long postId, String title, String content, SemtleUser semtleUser) {
+    public SemtleNotice(Long postId, String title, String content, SemtleUser semtleUser) {
         this.postId = postId;
         this.title = title;
         this.content = content;
         this.semtleUser = semtleUser;
     }
-
-    public SemtlePostDto toDto() {
-        return SemtlePostDto.builder()
-                .postId(postId)
-                .title(title)
-                .content(content)
-                .semtleUserDto(semtleUser.toDto())
-                .createdDate(getCreatedDate())
-                .updatedDate(getUpdatedDate()).build();
-    }
-
-    public void setSemtleUser(SemtleUser semtleUser) {
-        this.semtleUser = semtleUser;
-    }
-
 
 }

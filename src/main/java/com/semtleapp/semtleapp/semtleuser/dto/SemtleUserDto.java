@@ -1,15 +1,7 @@
 package com.semtleapp.semtleapp.semtleuser.dto;
 
-
-import com.semtleapp.semtleapp.semtlepost.dto.SemtlePostDto;
-import com.semtleapp.semtleapp.semtlepost.entity.SemtlePost;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import lombok.*;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.hibernate.cfg.AvailableSettings.USER;
 
 @Builder
 @NoArgsConstructor

@@ -28,6 +28,8 @@ public enum ErrorCode {
     DUPLICATE_EMAIL(400, "중복된 이메일입니다.", HttpStatus.BAD_REQUEST),
     REGISTERED_EMAIL(400, "등록된 회원입니다.", HttpStatus.BAD_REQUEST),
 
+    NOT_EXIST_POST(400, "존재하지 않는 게시글입니다", HttpStatus.BAD_REQUEST),
+
     ;
 
     private int code;

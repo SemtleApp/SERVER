@@ -47,4 +47,23 @@ public class SemtleStudyController {
     public ApiResponse<List<GetBelongAndPostStudyResDto.StudyPostList>> getStudyPost(@RequestParam String roomName) throws Exception {
         return new ApiResponse<>(semtleStudyService.getStudyPost(roomName));
     }
+
+    @ApiOperation(value = "스터디룸 게시글 상세조회", notes = "소속 스터디룸 게시글 상세조회")
+    @GetMapping("/post/{postId}")
+    public ApiResponse<GetStudyPostDetailResDto.PostDetail> getStudyPostDetail(@PathVariable Long postId) throws Exception {
+        return new ApiResponse<>(semtleStudyService.getStudyPostDetail(postId));
+    }
+
+    @ApiOperation(value = "스터디룸 게시글 수정", notes = "스터디룸 게시글 수정")
+    @PatchMapping("/modify")
+    public ApiResponse<ModifyStudyPostResDto> modifyStudyPost(Principal principal, @RequestPart(value = "file", required = false) List<MultipartFile> files, @RequestPart(value = "modifyStudyPostReqDto") ModifyStudyPostReqDto modifyStudyPostReqDto) throws Exception {
+        return new ApiResponse<>(semtleStudyService.modifyStudyPost(principal.getName(), modifyStudyPostReqDto, files));
+    }
+
+    @ApiOperation(value = "스터디룸 게시글 삭제", notes = "스터디룸 게시글 삭제")
+    @DeleteMapping("/post/{postId}")
+    public ApiResponse<DeleteStudyPostResDto> deleteStudyPost(Principal principal, @PathVariable Long postId) throws Exception {
+        return new ApiResponse<>(semtleStudyService.deleteStudyPost(principal.getName(), postId));
+    }
+
 }
