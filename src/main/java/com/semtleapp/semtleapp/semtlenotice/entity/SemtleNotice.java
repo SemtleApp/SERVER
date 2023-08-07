@@ -2,7 +2,7 @@ package com.semtleapp.semtleapp.semtlepost.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
-import com.semtleapp.semtleapp.semtlepost.dto.SemtlePostDto;
+import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyRoom;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -18,8 +18,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "semtle_post")
-public class SemtlePost extends BaseTimeEntity {
+@Table(name = "semtle_notice")
+public class SemtleNotice extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,7 @@ public class SemtlePost extends BaseTimeEntity {
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private SemtleUser semtleUser;
+
 
     @Column(name = "title")
     private String title;
@@ -44,6 +45,7 @@ public class SemtlePost extends BaseTimeEntity {
 //        this.content = content;
 //        this.semtleUser = semtleUser;
 //    }
+
 
     public SemtlePostDto toDto() {
         return SemtlePostDto.builder()

@@ -2,6 +2,9 @@ package com.semtleapp.semtleapp.semtlestudy.service;
 
 import com.semtleapp.semtleapp.file.entity.PhotoType;
 import com.semtleapp.semtleapp.file.service.FileUserService;
+import com.semtleapp.semtleapp.global.exception.CustomException;
+import com.semtleapp.semtleapp.global.exception.ErrorCode;
+import com.semtleapp.semtleapp.semtlestudy.controller.SemtleStudyController;
 import com.semtleapp.semtleapp.semtlestudy.convertor.SemtleStudyConvertor;
 import com.semtleapp.semtleapp.semtlestudy.dto.*;
 import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyBelong;
@@ -82,6 +85,44 @@ public class SemtleStudyServiceImpl implements SemtleStudyService {
                 )
         );
         return postList;
+    }
+
+    @Override
+    public GetStudyPostDetailResDto.PostDetail getStudyPostDetail(Long postId) {
+        SemtleStudyPostRepository.GetStudyPost studyPostDetail = semtleStudyPostRepository.getStudyPostDetail(postId);
+        List<SemtleStudyPostRepository.GetFileList> files = semtleStudyPostRepository.getfiles(postId);
+        GetStudyPostDetailResDto.PostDetail post = SemtleStudyConvertor.getfiles(studyPostDetail, files);
+        return post;
+
+    }
+
+    @Override
+    public ModifyStudyPostResDto modifyStudyPost(String email, ModifyStudyPostReqDto modifyStudyPostReqDto, List<MultipartFile> files) {
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
+        SemtleStudyPost semtleStudyPost = semtleStudyPostRepository.findById(modifyStudyPostReqDto.getPostId()).
+                orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_POST));
+        if(!semtleUser.getUserId().equals(semtleStudyPost.getSemtleUser().getUserId())) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        } else {
+            semtleStudyPost.updatePost(modifyStudyPostReqDto, semtleUser);
+            fileUserService.deleteFile(PhotoType.STUDY, semtleStudyPost.getPostId());
+            uploadPhotos(files, semtleStudyPost);
+        }
+        return ModifyStudyPostResDto.builder().message("게시글이 수정되었습니다").build();
+    }
+
+    @Override
+    public DeleteStudyPostResDto deleteStudyPost(String email, Long postId) {
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(email).get();
+        SemtleStudyPost semtleStudyPost = semtleStudyPostRepository.findById(postId).
+                orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_POST));
+        if(!semtleUser.getUserId().equals(semtleStudyPost.getSemtleUser().getUserId())) {
+            throw new CustomException(ErrorCode.FORBIDDEN);
+        } else {
+            semtleStudyPostRepository.deleteById(postId);
+            fileUserService.deleteFile(PhotoType.STUDY, postId);
+        }
+        return DeleteStudyPostResDto.builder().message("게시글이 삭제되었습니다").build();
     }
 
     private void uploadPhotos(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {
