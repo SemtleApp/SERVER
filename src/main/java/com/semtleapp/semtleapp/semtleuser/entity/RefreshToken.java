@@ -1,14 +1,19 @@
 package com.semtleapp.semtleapp.semtleuser.entity;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-@Entity
+@DynamicInsert
+@DynamicUpdate
+@Setter
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "refresh_token")
 public class RefreshToken {
     @Id
@@ -25,12 +30,12 @@ public class RefreshToken {
     @Column(name = "user_agent")
     private String userAgent;
 
-    @Builder
-    public RefreshToken(String refreshToken, String keyId, String userAgent) {
-        this.refreshToken = refreshToken;
-        this.keyId = keyId;
-        this.userAgent = userAgent;
-    }
+//    @Builder
+//    public RefreshToken(String refreshToken, String keyId, String userAgent) {
+//        this.refreshToken = refreshToken;
+//        this.keyId = keyId;
+//        this.userAgent = userAgent;
+//    }
 
     public void update(String refreshToken, String userAgent) {
         this.refreshToken = refreshToken;
