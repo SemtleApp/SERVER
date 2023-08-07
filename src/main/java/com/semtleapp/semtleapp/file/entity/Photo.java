@@ -1,15 +1,20 @@
 package com.semtleapp.semtleapp.file.entity;
 
 import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-@Entity
+@DynamicInsert
+@DynamicUpdate
+@Setter
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "photo")
 public class Photo extends BaseTimeEntity {
 
@@ -42,17 +47,17 @@ public class Photo extends BaseTimeEntity {
     @Column(name = "file_size")
     private Long fileSize;
 
-    @Builder
-    public Photo(Long targetId, String type, String uuId, String fileName, String filePath, String fileUrl, String fileDownloadPath, Long fileSize) {
-        this.targetId = targetId;
-        this.type = type;
-        this.uuId = uuId;
-        this.fileName = fileName;
-        this.filePath = filePath;
-        this.fileUrl = fileUrl;
-        this.fileDownloadPath = fileDownloadPath;
-        this.fileSize = fileSize;
-    }
+//    @Builder
+//    public Photo(Long targetId, String type, String uuId, String fileName, String filePath, String fileUrl, String fileDownloadPath, Long fileSize) {
+//        this.targetId = targetId;
+//        this.type = type;
+//        this.uuId = uuId;
+//        this.fileName = fileName;
+//        this.filePath = filePath;
+//        this.fileUrl = fileUrl;
+//        this.fileDownloadPath = fileDownloadPath;
+//        this.fileSize = fileSize;
+//    }
 
     public PhotoDto toDto() {
         return PhotoDto.builder()

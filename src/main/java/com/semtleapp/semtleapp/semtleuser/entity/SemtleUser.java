@@ -5,9 +5,9 @@ import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
 import com.semtleapp.semtleapp.semtlebook.entity.SemtleBook;
 import com.semtleapp.semtleapp.semtlepost.entity.SemtlePost;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +17,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Entity
+@DynamicInsert
+@DynamicUpdate
+@Setter
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "semtle_user")
 public class SemtleUser extends BaseTimeEntity implements UserDetails {
 
@@ -36,6 +41,9 @@ public class SemtleUser extends BaseTimeEntity implements UserDetails {
 
     @Column(name = "role")
     private String role;
+
+    @Column(name = "social")
+    private String social;
 
     @OneToMany(
             mappedBy = "semtleUser",
@@ -86,14 +94,15 @@ public class SemtleUser extends BaseTimeEntity implements UserDetails {
         return true;
     }
 
-    @Builder
-    public SemtleUser(String email, String password, String role, List<SemtlePost> semtlePostList, List<SemtleBook> semtleBookList) {
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.semtlePostList = semtlePostList;
-        this.semtleBookList = semtleBookList;
-    }
+//    @Builder
+//    public SemtleUser(String email, String password, String role, String social,
+//                      List<SemtlePost> semtlePostList, List<SemtleBook> semtleBookList) {
+//        this.email = email;
+//        this.password = password;
+//        this.role = role;
+//        this.semtlePostList = semtlePostList;
+//        this.semtleBookList = semtleBookList;
+//    }
 
     public SemtleUserDto toDto() {
         return SemtleUserDto.builder()

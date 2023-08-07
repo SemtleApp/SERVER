@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface SemtlePostRepository extends JpaRepository<SemtlePost, Long> {
-    List<SemtlePost> findBySemtleUser_EmailOrderByCreatedDateDesc(String semtleUser_email);
+    //List<SemtlePost> findBySemtleUser_EmailOrderByCreatedDateDesc(String semtleUser_email);
 }

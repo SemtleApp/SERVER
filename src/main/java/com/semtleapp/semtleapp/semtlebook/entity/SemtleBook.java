@@ -3,16 +3,21 @@ package com.semtleapp.semtleapp.semtlebook.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.semtleapp.semtleapp.semtlebook.dto.SemtleBookDto;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
 
-@Entity
+@DynamicInsert
+@DynamicUpdate
+@Setter
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "semtle_book")
 public class SemtleBook {
 
@@ -36,24 +41,24 @@ public class SemtleBook {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "user_id_v1")
-    private String userId;
+//    @Column(name = "user_id_v1")
+//    private String userId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private SemtleUser semtleUser;
 
-    @Builder
-    public SemtleBook(Long bookId, String bookName, String bookAuthor, String bookImage, int bookCount, String status, SemtleUser semtleUser) {
-        this.bookId = bookId;
-        this.bookName = bookName;
-        this.bookAuthor = bookAuthor;
-        this.bookImage = bookImage;
-        this.bookCount = bookCount;
-        this.status = status;
-        this.semtleUser = semtleUser;
-    }
+//    @Builder
+//    public SemtleBook(Long bookId, String bookName, String bookAuthor, String bookImage, int bookCount, String status, SemtleUser semtleUser) {
+//        this.bookId = bookId;
+//        this.bookName = bookName;
+//        this.bookAuthor = bookAuthor;
+//        this.bookImage = bookImage;
+//        this.bookCount = bookCount;
+//        this.status = status;
+//        this.semtleUser = semtleUser;
+//    }
 
     public SemtleBookDto toDto() {
         return SemtleBookDto.builder()

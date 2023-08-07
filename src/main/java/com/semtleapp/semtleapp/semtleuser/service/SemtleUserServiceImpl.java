@@ -49,11 +49,12 @@ public class SemtleUserServiceImpl implements SemtleUserService {
                 .email(signupDto.getEmail())
                 .password(passwordEncoder.encode(signupDto.getPassword()))
                 .role("ROLE_USER")
+                .social("")
                 .build();
         semtleUserRepository.save(user);
 
         SemtleUserInfo userInfo = SemtleUserInfo.builder()
-                .userId(user.getUserId())
+                .semtleUser(user)
                 .name(signupDto.getName())
                 .nickname(signupDto.getNickname())
                 .grade(signupDto.getGrade())
@@ -69,7 +70,7 @@ public class SemtleUserServiceImpl implements SemtleUserService {
     @Override
     public SemtleUserRes.UserDetail nowUser(String email) {
         SemtleUser user = semtleUserRepository.findByEmail(email).get();
-        SemtleUserInfo userInfo = semtleUserInfoRepository.findByUserId(user.getUserId()).get();
+        SemtleUserInfo userInfo = semtleUserInfoRepository.findBySemtleUser(user).get();
         return SemtleUserRes.UserDetail.toDto(user, userInfo);
     }
 
