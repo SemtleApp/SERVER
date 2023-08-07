@@ -1,4 +1,4 @@
-package com.semtleapp.semtleapp.semtlepost.entity;
+package com.semtleapp.semtleapp.semtlenotice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
@@ -47,15 +47,15 @@ public class SemtleNotice extends BaseTimeEntity {
 //    }
 
 
-    public SemtlePostDto toDto() {
-        return SemtlePostDto.builder()
-                .postId(postId)
-                .title(title)
-                .content(content)
-                .semtleUserDto(semtleUser.toDto())
-                .createdDate(getCreatedDate())
-                .updatedDate(getUpdatedDate()).build();
-    }
+//    public SemtlePostDto toDto() {
+//        return SemtlePostDto.builder()
+//                .postId(postId)
+//                .title(title)
+//                .content(content)
+//                .semtleUserDto(semtleUser.toDto())
+//                .createdDate(getCreatedDate())
+//                .updatedDate(getUpdatedDate()).build();
+//    }
 
     public void setSemtleUser(SemtleUser semtleUser) {
         this.semtleUser = semtleUser;

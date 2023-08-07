@@ -1,9 +1,6 @@
 package com.semtleapp.semtleapp.semtleuser.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
-import com.semtleapp.semtleapp.semtlebook.entity.SemtleBook;
-import com.semtleapp.semtleapp.semtlepost.entity.SemtlePost;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -45,21 +42,21 @@ public class SemtleUser extends BaseTimeEntity implements UserDetails {
     @Column(name = "social")
     private String social;
 
-    @OneToMany(
-            mappedBy = "semtleUser",
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            orphanRemoval = true
-    )
-    @JsonManagedReference
-    private List<SemtlePost> semtlePostList = new ArrayList<>();
-
-    @OneToMany(
-            mappedBy = "semtleUser",
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            orphanRemoval = true
-    )
-    @JsonManagedReference
-    private List<SemtleBook> semtleBookList = new ArrayList<>();
+//    @OneToMany(
+//            mappedBy = "semtleUser",
+//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+//            orphanRemoval = true
+//    )
+//    @JsonManagedReference
+//    private List<SemtlePost> semtlePostList = new ArrayList<>();
+//
+//    @OneToMany(
+//            mappedBy = "semtleUser",
+//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+//            orphanRemoval = true
+//    )
+//    @JsonManagedReference
+//    private List<SemtleBook> semtleBookList = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -112,8 +109,8 @@ public class SemtleUser extends BaseTimeEntity implements UserDetails {
                 .build();
     }
 
-    public void addPost(SemtlePost semtlePost) {
-        this.semtlePostList.add(semtlePost);
-        semtlePost.setSemtleUser(this);
-    }
+//    public void addPost(SemtlePost semtlePost) {
+//        this.semtlePostList.add(semtlePost);
+//        semtlePost.setSemtleUser(this);
+//    }
 }
