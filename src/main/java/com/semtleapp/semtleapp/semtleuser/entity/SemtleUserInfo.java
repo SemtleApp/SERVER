@@ -43,7 +43,7 @@ public class SemtleUserInfo {
     @Column(name = "phone")
     private String phone;
 
-    @Enumerated(value = EnumType.STRING) //enum의 값 자체를 저장
+    //@Enumerated(value = EnumType.STRING) //enum의 값 자체를 저장
     private String status;
 
 

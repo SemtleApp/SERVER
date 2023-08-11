@@ -50,7 +50,7 @@ public class SemtleUserController {
         //principal.getName() 하면 시큐리티에서 들어온 회원의 이메일을 가지고옴.
         //TODO 예외처리 추가 예정
 
-        if(principal.getName() ==  null)
+        if(principal.getName().isEmpty())
             throw new CustomException(BAD_REQUEST);
 
         return new ApiResponse<>(semtleUserService.nowUser(principal.getName()));
