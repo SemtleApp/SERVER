@@ -1,7 +1,7 @@
 package com.semtleapp.semtleapp.semtledues.controller;
 
 import com.semtleapp.semtleapp.global.entity.ApiResponse;
-import com.semtleapp.semtleapp.semtledues.dto.GetIngResDto;
+import com.semtleapp.semtleapp.semtledues.dto.GetDuesResDto;
 import com.semtleapp.semtleapp.semtledues.service.SemtleDuesService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,10 +21,10 @@ public class SemtleDuesController {
 
     private final SemtleDuesService semtleDuesService;
 
-    @ApiOperation(value = "회비 미납부자 조회", notes = "회비 미납부자 조회")
+    @ApiOperation(value = "회비 납부여부 전체조회", notes = "회비 납부여부 전체조회")
     @PreAuthorize("hasAnyRole('ADMIN', 'ASEM', 'BSEM' , 'CSEM')")
-    @GetMapping("/Ing")
-    public ApiResponse<List<GetIngResDto.IngList>> getIng(String status) throws Exception {
-        return new ApiResponse<>(semtleDuesService.getIng("ING"));
+    @GetMapping("/dues")
+    public ApiResponse<List<GetDuesResDto.DuesList>> getDues() throws Exception {
+        return new ApiResponse<>(semtleDuesService.getDues());
     }
 }

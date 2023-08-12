@@ -2,20 +2,17 @@ package com.semtleapp.semtleapp.semtledues.dto;
 
 import lombok.*;
 
-public class GetIngResDto {
+public class GetDuesResDto {
 
     @Getter
     @Setter
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class IngList {
+    public static class DuesList {
 
         private String name;
-        private String nickname;
-        private int grade;
         private String studentId;
-        private String phone;
         private String status;
     }
 }
