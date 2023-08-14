@@ -1,9 +1,9 @@
 package com.semtleapp.semtleapp.semtledues.service;
 
 import com.semtleapp.semtleapp.semtledues.convertor.SemtleDuesConvertor;
-import com.semtleapp.semtleapp.semtledues.dto.GetIngResDto;
-import com.semtleapp.semtleapp.semtledues.entity.SemtleDues;
+import com.semtleapp.semtleapp.semtledues.dto.GetDuesResDto;
 import com.semtleapp.semtleapp.semtledues.repository.SemtleDuesRepository;
+import com.semtleapp.semtleapp.semtleuser.entity.SemtleUserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +19,15 @@ public class SemtleDuesServiceImpl implements SemtleDuesService {
     private final SemtleDuesRepository semtleDuesRepository;
 
     @Override
-    public List<GetIngResDto.IngList> getIng(String status) {
-        List<SemtleDues> semtleDues = semtleDuesRepository.findByStatus(status);
-        List<GetIngResDto.IngList> ingList = new ArrayList<>();
-        semtleDues.forEach(
-                result -> ingList.add(
-                        SemtleDuesConvertor.creatIng(result)
+    public List<GetDuesResDto.DuesList> getDues() {
+        List<SemtleUserInfo> semtleUserInfo = semtleDuesRepository.findAll();
+        List<GetDuesResDto.DuesList> duesList = new ArrayList<>();
+        semtleUserInfo.forEach(
+                result -> duesList.add(
+                        SemtleDuesConvertor.getDues(result)
                         )
                 );
 
-        return ingList;
+        return duesList;
     }
 }
