@@ -58,6 +58,25 @@ public class SemtleNoticeController {
         }
     }
 
+    @ApiOperation(value = "공지사항 글 전체조회", notes = "공지사항 글 전체조회")
+    @GetMapping
+    public ApiResponse<List<SemtleNoticeRes.GetNoticeRes>> getNoticePost() throws Exception {
+        try{
+            return new ApiResponse<>(semtleNoticeService.getNoticePost());
+        } catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @ApiOperation(value = "공지사항 글 상세조회", notes = "공지사항 글 상세조회")
+    @GetMapping("/{postId}")
+    public ApiResponse<SemtleNoticeRes.GetNoticeDetailRes> getNoticePostDetail(@PathVariable Long postId) throws Exception {
+        try{
+            return new ApiResponse<>(semtleNoticeService.getNoticePostDetail(postId));
+        } catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
 
 
 }
