@@ -61,10 +61,11 @@ public class SecurityConfig {
                 .antMatchers("/s1/m/**").hasRole("ADMIN")//회장
                 .antMatchers("/s1/as/**").hasRole("ASEM")//부회장
                 .antMatchers("/s1/bs/**").hasRole("BSEM")//총무
-                .antMatchers("/book/upload/book/**").hasRole("CSEM")//책 업로드 서기
-                .antMatchers("/book/upload/book/**").hasRole("ADMIN")//책 업로드 회장
-                .antMatchers("/book/upload/book/**").hasRole("ASEM")//책 업로드 부회장
-                .antMatchers("/s1/ds/**").hasRole("DSEM")//홍보
+                .antMatchers("/book/upload/book/**").permitAll()
+                //.antMatchers("/book/upload/book/**").hasRole("CSEM")//책 업로드 서기
+                //.antMatchers("/book/upload/book/**").hasRole("ADMIN")//책 업로드 회장
+               // .antMatchers("/book/upload/book/**").hasRole("ASEM")//책 업로드 부회장
+              //  .antMatchers("/s1/ds/**").hasRole("DSEM")//홍보
                 .antMatchers("/s1/es/**").hasRole("ESEM")//스터디
                 //여기는 jwt검증 안함
                 .antMatchers("/u/**").permitAll()
