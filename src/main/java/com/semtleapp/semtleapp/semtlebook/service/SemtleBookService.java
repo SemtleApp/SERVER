@@ -10,11 +10,13 @@ import java.util.List;
 
 public interface SemtleBookService {
 
-    CreateSemtleBookDto create(CreateSemtleBookDto semtleBookDto, List<MultipartFile> files);
+    CreateSemtleBookDto createBook(CreateSemtleBookDto semtleBookDto, List<MultipartFile> files);
 
     List<CreateSemtleBookDto> getBookList();
 
-    public void saveBookFile(List<MultipartFile> files, SemtleBook semtleBook);
+    void saveBookFile(List<MultipartFile> files, SemtleBook semtleBook);
 
-    public UpdateSemtleBookResDto updateBook(UpdateSemtleBookReqDto updateSemtleBookReqDto, List<MultipartFile> files);
+    UpdateSemtleBookResDto updateBook(UpdateSemtleBookReqDto updateSemtleBookReqDto, List<MultipartFile> files);
+
+    Long deleteBook(Long deleteBookId);
 }

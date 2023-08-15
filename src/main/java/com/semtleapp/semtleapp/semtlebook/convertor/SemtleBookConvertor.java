@@ -5,10 +5,11 @@ import com.semtleapp.semtleapp.semtlebook.dto.UpdateSemtleBookResDto;
 import com.semtleapp.semtleapp.semtlebook.entity.SemtleBook;
 import org.springframework.context.annotation.Bean;
 
+
 public class SemtleBookConvertor {
 
 
-    public UpdateSemtleBookResDto updateSemtleBookResDto(SemtleBook semtleBook) {
+    public static UpdateSemtleBookResDto updateSemtleBookResDto(SemtleBook semtleBook) {
         return UpdateSemtleBookResDto.builder()
                 .bookId(semtleBook.getBookId())
                 .bookName(semtleBook.getBookName())

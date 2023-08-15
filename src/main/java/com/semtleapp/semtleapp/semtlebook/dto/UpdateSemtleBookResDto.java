@@ -25,11 +25,5 @@ public class UpdateSemtleBookResDto {
         this.bookCount = bookCount;
     }
 
-    public SemtleBook toEntity() {
-        return SemtleBook.builder()
-                .bookName(bookName)
-                .bookAuthor(bookAuthor)
-                .bookImage(bookImage)
-                .bookCount(bookCount).build();
-    }
+
 }

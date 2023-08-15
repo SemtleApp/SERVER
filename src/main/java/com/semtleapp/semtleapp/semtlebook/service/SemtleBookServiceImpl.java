@@ -6,6 +6,7 @@ import com.semtleapp.semtleapp.file.service.FileUserService;
 import com.semtleapp.semtleapp.file.service.FileUserServiceImpl;
 import com.semtleapp.semtleapp.semtlebook.convertor.SemtleBookConvertor;
 import com.semtleapp.semtleapp.semtlebook.dto.CreateSemtleBookDto;
+import com.semtleapp.semtleapp.semtlebook.dto.DeleteSemtleBookReqDto;
 import com.semtleapp.semtleapp.semtlebook.dto.UpdateSemtleBookReqDto;
 import com.semtleapp.semtleapp.semtlebook.dto.UpdateSemtleBookResDto;
 import com.semtleapp.semtleapp.semtlebook.entity.SemtleBook;
@@ -26,12 +27,11 @@ import java.util.List;
 public class SemtleBookServiceImpl implements SemtleBookService {
     private final SemtleBookRepository semtleBookRepository;
     private final SemtleUserRepository semtleUserRepository;
-    private final SemtleBookConvertor semtleBookConvertor;
     private final FileUserService fileUserService;
 
     //도서 등록
     @Override
-    public CreateSemtleBookDto create(CreateSemtleBookDto createSemtleBookDto, List<MultipartFile> files) {
+    public CreateSemtleBookDto createBook(CreateSemtleBookDto createSemtleBookDto, List<MultipartFile> files) {
         SemtleBook semtleBook = createSemtleBookDto.toEntity();
 
         semtleBookRepository.save(semtleBook);
@@ -46,13 +46,13 @@ public class SemtleBookServiceImpl implements SemtleBookService {
     public UpdateSemtleBookResDto updateBook(UpdateSemtleBookReqDto updateSemtleBookReqDto, List<MultipartFile> files) {
 
         SemtleBook findSemtleBook =
-                semtleBookRepository.findById(updateSemtleBookReqDto.getBookId()).orElse(null);
+                semtleBookRepository.findByName(updateSemtleBookReqDto.getBookName());
 
         findSemtleBook.change(updateSemtleBookReqDto);
 
         saveBookFile(files, findSemtleBook);
 
-        UpdateSemtleBookResDto updateSemtleBookResDto= semtleBookConvertor.updateSemtleBookResDto(findSemtleBook);
+        UpdateSemtleBookResDto updateSemtleBookResDto= SemtleBookConvertor.updateSemtleBookResDto(findSemtleBook);
 
         return updateSemtleBookResDto;
 
@@ -66,7 +66,13 @@ public class SemtleBookServiceImpl implements SemtleBookService {
         return null;
     }
 
-    //도서 검색
+    //도서 삭제
+    @Override
+    public Long deleteBook(Long deleteBookId){
+        semtleBookRepository.deleteById(deleteBookId);
+        return deleteBookId;
+
+    }
 
     @Override
     public void saveBookFile(List<MultipartFile> files, SemtleBook semtleBook) {
@@ -76,4 +82,5 @@ public class SemtleBookServiceImpl implements SemtleBookService {
             e.printStackTrace();
         }
     }
+
 }

@@ -14,7 +14,7 @@ public class SemtleBookListResDto {
     private String bookAuthor;
     private int bookCount;
 
-    public SemtleBookListResDto(String bookName, String bookAuthor, String bookImage, int bookCount){
+    public SemtleBookListResDto(String bookName, String bookAuthor, int bookCount){
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCount = bookCount;
