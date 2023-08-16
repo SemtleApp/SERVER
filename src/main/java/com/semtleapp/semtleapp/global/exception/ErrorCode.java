@@ -30,6 +30,10 @@ public enum ErrorCode {
 
     NOT_EXIST_POST(400, "존재하지 않는 게시글입니다", HttpStatus.BAD_REQUEST),
 
+    UNAUTHORIZED_MEMBER(400, "관리자의 승인이 나지 않았습니다", HttpStatus.BAD_REQUEST),
+
+
+
     ;
 
     private int code;
