@@ -25,6 +25,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
+import static com.semtleapp.semtleapp.global.exception.ErrorCode.UNAUTHORIZED_MEMBER;
+
 
 @Service
 @RequiredArgsConstructor
@@ -60,6 +62,7 @@ public class SemtleUserServiceImpl implements SemtleUserService {
                 .grade(signupDto.getGrade())
                 .studentId(signupDto.getStudentId())
                 .phone(signupDto.getPhone())
+                .status("BEFORE") //첫 회원가입 시
                 .build();
         semtleUserInfoRepository.save(userInfo);
 
@@ -80,6 +83,11 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 //        authenticationManager.authenticate(
 //                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
 //        );
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(loginDto.getEmail()).get();
+        SemtleUserInfo semtleUserInfo = semtleUserInfoRepository.findBySemtleUser(semtleUser).get();
+
+        if(semtleUserInfo.getStatus().equals("BEFORE"))
+            throw new CustomException(UNAUTHORIZED_MEMBER);
 
         String email = loginDto.getEmail();
 
@@ -88,7 +96,8 @@ public class SemtleUserServiceImpl implements SemtleUserService {
         RefreshToken refreshToken = RefreshToken.builder()
                 .keyId(token.getKey())
                 .refreshToken(token.getRefreshToken())
-                .userAgent(userAgent).build();
+                .userAgent(userAgent)
+                .build();
 
         Optional<RefreshToken> tokenOptional = refreshTokenRepository.findByKeyId(email);
 
