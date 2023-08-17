@@ -3,15 +3,20 @@ package com.semtleapp.semtleapp.semtlestudy.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.semtleapp.semtleapp.global.entity.BaseTimeEntity;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-@Entity
+@DynamicInsert
+@DynamicUpdate
+@Setter
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "semtle_studyRoom")
 public class SemtleStudyRoom extends BaseTimeEntity {
 

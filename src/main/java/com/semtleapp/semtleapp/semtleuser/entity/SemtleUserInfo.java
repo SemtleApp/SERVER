@@ -1,17 +1,20 @@
 package com.semtleapp.semtleapp.semtleuser.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
-@Builder
-@Entity
+@DynamicInsert
+@DynamicUpdate
+@Setter
 @Getter
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "semtle_user_info")
 public class SemtleUserInfo {
 
@@ -20,8 +23,10 @@ public class SemtleUserInfo {
     @Column(name = "info_id", unique = true, nullable = false)
     private Long infoId;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private SemtleUser semtleUser;
 
     @Column(name = "name")
     private String name;
@@ -38,5 +43,6 @@ public class SemtleUserInfo {
     @Column(name = "phone")
     private String phone;
 
-
+    @Column(name = "status")
+    private String status;
 }

@@ -68,6 +68,7 @@ public class SecurityConfig {
                 .antMatchers("/s1/es/**").hasRole("ESEM")//스터디
                 //여기는 jwt검증 안함
                 .antMatchers("/u/**").permitAll()
+                .antMatchers("/oauth/kakao", "/oauth/kakao/login").permitAll()
                 .and()
                 .cors()
                 .and()

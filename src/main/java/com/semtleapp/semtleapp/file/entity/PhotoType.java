@@ -14,7 +14,10 @@ public enum PhotoType {
     ACCOUNTING("ACCOUNTING", "/ACCOUNTING"),
     STUDY("STUDY", "/STUDY"),
     BOOK("BOOK", "/BOOK"),
-    ANY("ANY", "/ANY");
+    ANY("ANY", "/ANY"),
+    USER("USER", "/USER"),
+
+    ;
 
     private String value;
     private String path;
