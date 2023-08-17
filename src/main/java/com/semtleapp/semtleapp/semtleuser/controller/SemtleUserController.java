@@ -34,7 +34,8 @@ public class SemtleUserController {
     @ApiOperation(value = "회원가입", notes = "회원가입")
     @PostMapping("/signup")
     public ApiResponse<SemtleUserRes.UserDetail> signup(@RequestPart(value = "signupDto") SemtleUserReq.SignupDto signupDto,
-                                                        @RequestPart(value = "file", required = false) MultipartFile file) {
+                                                        @RequestPart(value = "file", required = false) MultipartFile file
+                                                        ) {
 
         SemtleUserRes.UserDetail result = semtleUserService.signup(signupDto, file);
         return new ApiResponse<>(result);
@@ -42,7 +43,7 @@ public class SemtleUserController {
 
     @ApiOperation(value = "로그인", notes = "로그인")
     @PostMapping("/login")
-    public ApiResponse<Token> login(HttpServletRequest request, @RequestBody SemtleUserReq.LoginDto loginDto,
+    public ApiResponse<Token> login(@RequestBody SemtleUserReq.LoginDto loginDto,
                                     @RequestHeader(value = "User-Agent", required = false) String userAgent) {
 
         return new ApiResponse<>(semtleUserService.login(loginDto, userAgent));
