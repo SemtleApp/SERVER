@@ -1,6 +1,9 @@
 package com.semtleapp.semtleapp.semtleuser.service;
 
+import com.semtleapp.semtleapp.file.entity.PhotoType;
+import com.semtleapp.semtleapp.file.service.FileUserService;
 import com.semtleapp.semtleapp.global.jwt.JwtProvider;
+import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyPost;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserReq;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserRes;
 import com.semtleapp.semtleapp.semtleuser.dto.Token;
@@ -13,16 +16,15 @@ import com.semtleapp.semtleapp.semtleuser.repository.RefreshTokenRepository;
 import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserInfoRepository;
 import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import static com.semtleapp.semtleapp.global.exception.ErrorCode.UNAUTHORIZED_MEMBER;
@@ -38,11 +40,22 @@ public class SemtleUserServiceImpl implements SemtleUserService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private final FileUserService fileUserService;
 
+    private void uploadPhoto(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {
+        if(files != null) {
+            try {
+                fileUserService.saveFiles(files, PhotoType.STUDY, saveSemtleStudyPost.getPostId());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    @SneakyThrows
     @Transactional
     @Override
-    public SemtleUserRes.UserDetail signup(SemtleUserReq.SignupDto signupDto) {
+    public SemtleUserRes.UserDetail signup(SemtleUserReq.SignupDto signupDto, MultipartFile file) {
         semtleUserRepository.findByEmail(signupDto.getEmail()).ifPresent(e -> {
             throw new CustomException(ErrorCode.REGISTERED_EMAIL);
         });
@@ -65,6 +78,11 @@ public class SemtleUserServiceImpl implements SemtleUserService {
                 .status("BEFORE") //첫 회원가입 시
                 .build();
         semtleUserInfoRepository.save(userInfo);
+
+
+        //프로필 사진 업로드하기
+        fileUserService.saveFile(file, PhotoType.USER, user.getUserId());
+
 
 
         return SemtleUserRes.UserDetail.toDto(user, userInfo);

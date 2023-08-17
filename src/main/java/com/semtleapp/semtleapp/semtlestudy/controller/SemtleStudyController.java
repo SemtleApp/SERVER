@@ -25,7 +25,9 @@ public class SemtleStudyController {
     @ApiOperation(value = "스터디룸 글작성", notes = "스터디룸 글작성")
     @PreAuthorize("hasAnyRole('ESEM', 'ADMIN', 'ASEM', 'BSEM', 'CSEM', 'DSEM')")
     @PostMapping("/register")
-    public ApiResponse<RegisterStudyPostResDto> registerStudyPost(Principal principal, @RequestPart(value = "file", required = false) List<MultipartFile> files, @RequestPart(value = "registerStudyPostReqDto") RegisterStudyPostReqDto registerStudyPostReqDto) throws Exception {
+    public ApiResponse<RegisterStudyPostResDto> registerStudyPost(Principal principal,
+                                                                  @RequestPart(value = "file", required = false) List<MultipartFile> files,
+                                                                  @RequestPart(value = "registerStudyPostReqDto") RegisterStudyPostReqDto registerStudyPostReqDto) throws Exception {
         return new ApiResponse<>(semtleStudyService.registerStudyPost(principal.getName(), registerStudyPostReqDto, files));
     }
 
@@ -56,7 +58,9 @@ public class SemtleStudyController {
 
     @ApiOperation(value = "스터디룸 게시글 수정", notes = "스터디룸 게시글 수정")
     @PatchMapping("/modify")
-    public ApiResponse<ModifyStudyPostResDto> modifyStudyPost(Principal principal, @RequestPart(value = "file", required = false) List<MultipartFile> files, @RequestPart(value = "modifyStudyPostReqDto") ModifyStudyPostReqDto modifyStudyPostReqDto) throws Exception {
+    public ApiResponse<ModifyStudyPostResDto> modifyStudyPost(Principal principal,
+                                                              @RequestPart(value = "file", required = false) List<MultipartFile> files,
+                                                              @RequestPart(value = "modifyStudyPostReqDto") ModifyStudyPostReqDto modifyStudyPostReqDto) throws Exception {
         return new ApiResponse<>(semtleStudyService.modifyStudyPost(principal.getName(), modifyStudyPostReqDto, files));
     }
 

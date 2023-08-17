@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.util.List;
 
 public interface FileUserService {
-    List<PhotoDto> saveFile(List<MultipartFile> files, PhotoType photoType, Long targetId) throws IOException;
+    List<PhotoDto> saveFiles(List<MultipartFile> files, PhotoType photoType, Long targetId) throws IOException;
+
+    PhotoDto saveFile(MultipartFile file, PhotoType photoType, Long targetId) throws IOException;
     void deleteFile(PhotoType photoType, Long targetId);
 
 }

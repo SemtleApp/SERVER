@@ -11,10 +11,6 @@ import com.semtleapp.semtleapp.semtlenotice.dto.SemtleNoticeReq;
 import com.semtleapp.semtleapp.semtlenotice.dto.SemtleNoticeRes;
 import com.semtleapp.semtleapp.semtlenotice.entity.SemtleNotice;
 import com.semtleapp.semtleapp.semtlenotice.repository.SemtleNoticeRepository;
-import com.semtleapp.semtleapp.semtlestudy.convertor.SemtleStudyConvertor;
-import com.semtleapp.semtleapp.semtlestudy.dto.GetBelongAndPostStudyResDto;
-import com.semtleapp.semtleapp.semtlestudy.dto.GetStudyPostDetailResDto;
-import com.semtleapp.semtleapp.semtlestudy.repository.SemtleStudyPostRepository;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserInfoRepository;
 import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserRepository;
@@ -109,7 +105,7 @@ public class SemtleNoticeServiceImpl implements SemtleNoticeService {
     private void uploadPhotos(List<MultipartFile> files, Long postId) {
         if(files != null) {
             try {
-                fileUserService.saveFile(files, PhotoType.NOTICE, postId);
+                fileUserService.saveFiles(files, PhotoType.NOTICE, postId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
