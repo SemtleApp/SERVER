@@ -4,7 +4,6 @@ import com.semtleapp.semtleapp.file.entity.PhotoType;
 import com.semtleapp.semtleapp.file.service.FileUserService;
 import com.semtleapp.semtleapp.global.exception.CustomException;
 import com.semtleapp.semtleapp.global.exception.ErrorCode;
-import com.semtleapp.semtleapp.semtlestudy.controller.SemtleStudyController;
 import com.semtleapp.semtleapp.semtlestudy.convertor.SemtleStudyConvertor;
 import com.semtleapp.semtleapp.semtlestudy.dto.*;
 import com.semtleapp.semtleapp.semtlestudy.entity.SemtleStudyBelong;
@@ -128,7 +127,7 @@ public class SemtleStudyServiceImpl implements SemtleStudyService {
     private void uploadPhotos(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {
         if(files != null) {
             try {
-                fileUserService.saveFile(files, PhotoType.STUDY, saveSemtleStudyPost.getPostId());
+                fileUserService.saveFiles(files, PhotoType.STUDY, saveSemtleStudyPost.getPostId());
             } catch (IOException e) {
                 e.printStackTrace();
             }

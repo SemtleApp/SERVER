@@ -43,13 +43,19 @@ public class FileUserServiceImpl implements FileUserService{
     }
 
     @Override
-    public List<PhotoDto> saveFile(List<MultipartFile> files, PhotoType photoType, Long targetId) throws IOException {
+    public List<PhotoDto> saveFiles(List<MultipartFile> files, PhotoType photoType, Long targetId) throws IOException {
         List<PhotoDto> photoDtoList = new ArrayList<>();
 
         for(MultipartFile file : files) {
             photoDtoList.add(uploadFile(file, photoType, targetId));
         }
         return photoDtoList;
+    }
+
+    @Override
+    public PhotoDto saveFile(MultipartFile file, PhotoType photoType, Long targetId) throws IOException {
+        PhotoDto photoDto = uploadFile(file, photoType, targetId);
+        return photoDto;
     }
 
     @Override
@@ -66,6 +72,7 @@ public class FileUserServiceImpl implements FileUserService{
             }
         }
     }
+
 
     private PhotoDto uploadFile(MultipartFile file, PhotoType photoType, Long targetId) throws IOException {
         String originFileName = file.getOriginalFilename();

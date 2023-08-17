@@ -8,7 +8,6 @@ import com.semtleapp.semtleapp.semtlebook.dto.SemtleBookDto;
 import com.semtleapp.semtleapp.semtlebook.entity.SemtleBook;
 import com.semtleapp.semtleapp.semtlebook.repository.SemtleBookRepository;
 import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,7 +35,7 @@ public class SemtleBookServiceImpl implements SemtleBookService {
         SemtleBookDto res_semtleBookDto = semtleBookRepository.save(semtleBook).toDto();
 
         try {
-            List<PhotoDto> photoDtoList = fileUserService.saveFile(files, PhotoType.BOOK, res_semtleBookDto.getBookId());
+            List<PhotoDto> photoDtoList = fileUserService.saveFiles(files, PhotoType.BOOK, res_semtleBookDto.getBookId());
         } catch (IOException e) {
             e.printStackTrace();
         }
