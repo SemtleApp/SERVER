@@ -42,20 +42,20 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 
     private final FileUserService fileUserService;
 
-    private void uploadPhoto(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {
-        if(files != null) {
-            try {
-                fileUserService.saveFiles(files, PhotoType.STUDY, saveSemtleStudyPost.getPostId());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    private void uploadPhoto(List<MultipartFile> files, Long userId) {
+//        if(files != null) {
+//            try {
+//                fileUserService.saveFiles(files, PhotoType.USER, userId);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     @SneakyThrows
     @Transactional
     @Override
-    public SemtleUserRes.UserDetail signup(SemtleUserReq.SignupDto signupDto, MultipartFile file) {
+    public SemtleUserRes.UserDetail signup(SemtleUserReq.SignupDto signupDto, MultipartFile file ) {
         semtleUserRepository.findByEmail(signupDto.getEmail()).ifPresent(e -> {
             throw new CustomException(ErrorCode.REGISTERED_EMAIL);
         });
@@ -66,7 +66,7 @@ public class SemtleUserServiceImpl implements SemtleUserService {
                 .role("ROLE_USER")
                 .social("")
                 .build();
-        semtleUserRepository.save(user);
+        Long userId = semtleUserRepository.save(user).getUserId();
 
         SemtleUserInfo userInfo = SemtleUserInfo.builder()
                 .semtleUser(user)
@@ -81,8 +81,7 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 
 
         //프로필 사진 업로드하기
-        fileUserService.saveFile(file, PhotoType.USER, user.getUserId());
-
+        fileUserService.saveFile(file, PhotoType.USER, userId);
 
 
         return SemtleUserRes.UserDetail.toDto(user, userInfo);
