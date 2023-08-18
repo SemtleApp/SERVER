@@ -82,16 +82,18 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 
         //프로필 사진 업로드하기
         fileUserService.saveFile(file, PhotoType.USER, userId);
+        SemtleUserInfoRepository.GetProfileImage profileImage = semtleUserInfoRepository.getProfileImage(userId);
 
-
-        return SemtleUserRes.UserDetail.toDto(user, userInfo);
+        return SemtleUserRes.UserDetail.toDto(user, userInfo, profileImage);
     }
 
     @Override
     public SemtleUserRes.UserDetail nowUser(String email) {
         SemtleUser user = semtleUserRepository.findByEmail(email).get();
         SemtleUserInfo userInfo = semtleUserInfoRepository.findBySemtleUser(user).get();
-        return SemtleUserRes.UserDetail.toDto(user, userInfo);
+        SemtleUserInfoRepository.GetProfileImage profileImage = semtleUserInfoRepository.getProfileImage(user.getUserId());
+
+        return SemtleUserRes.UserDetail.toDto(user, userInfo, profileImage);
     }
 
 
