@@ -17,7 +17,7 @@ public interface SemtleUserInfoRepository extends JpaRepository<SemtleUserInfo, 
     Optional<SemtleUserInfo> findBySemtleUser(SemtleUser semtleUser);
 
     @Query(value = "select p.file_name as 'fileName', p.file_download_path as 'fileDownLoadPath' from photo p where p.target_id=:userId and p.type='USER'", nativeQuery = true)
-    GetProfileImage getProfileImage(@Param("postId") Long userId);
+    GetProfileImage getProfileImage(@Param("userId") Long userId);
 
     interface GetProfileImage {
         String getFileName();
