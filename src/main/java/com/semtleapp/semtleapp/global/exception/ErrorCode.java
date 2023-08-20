@@ -32,6 +32,7 @@ public enum ErrorCode {
 
     UNAUTHORIZED_MEMBER(400, "관리자의 승인이 나지 않았습니다", HttpStatus.BAD_REQUEST),
 
+    NOT_EXIST_USER(400, "존재하지 않는 유저입니다", HttpStatus.BAD_REQUEST),
 
 
     ;
