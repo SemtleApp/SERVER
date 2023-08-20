@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import static com.semtleapp.semtleapp.global.exception.ErrorCode.NOT_EXIST_USER;
 import static com.semtleapp.semtleapp.global.exception.ErrorCode.UNAUTHORIZED_MEMBER;
 
 
@@ -102,9 +103,16 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 //        authenticationManager.authenticate(
 //                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
 //        );
-        SemtleUser semtleUser = semtleUserRepository.findByEmail(loginDto.getEmail()).get();
-        SemtleUserInfo semtleUserInfo = semtleUserInfoRepository.findBySemtleUser(semtleUser).get();
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(loginDto.getEmail()).orElse(null);
 
+
+        //유저 존재 여부
+        if(semtleUser == null)
+            throw new CustomException(NOT_EXIST_USER);
+
+
+        //관리자 승인 여부
+        SemtleUserInfo semtleUserInfo = semtleUserInfoRepository.findBySemtleUser(semtleUser).get();
         if(semtleUserInfo.getStatus().equals("BEFORE"))
             throw new CustomException(UNAUTHORIZED_MEMBER);
 
