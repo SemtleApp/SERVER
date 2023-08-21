@@ -27,8 +27,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.semtleapp.semtleapp.global.exception.ErrorCode.NOT_EXIST_USER;
-import static com.semtleapp.semtleapp.global.exception.ErrorCode.UNAUTHORIZED_MEMBER;
+import static com.semtleapp.semtleapp.global.exception.ErrorCode.*;
 
 
 @Service
@@ -110,6 +109,10 @@ public class SemtleUserServiceImpl implements SemtleUserService {
         if(semtleUser == null)
             throw new CustomException(NOT_EXIST_USER);
 
+        //비밀번호 일치 여부
+        if(!passwordEncoder.matches(loginDto.getPassword(), semtleUser.getPassword())){
+            throw new CustomException(PASSWORD_NOT_FOUND_EXCEPTION);
+        }
 
         //관리자 승인 여부
         SemtleUserInfo semtleUserInfo = semtleUserInfoRepository.findBySemtleUser(semtleUser).get();
