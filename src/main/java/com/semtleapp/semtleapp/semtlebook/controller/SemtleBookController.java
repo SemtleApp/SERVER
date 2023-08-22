@@ -25,7 +25,6 @@ public class SemtleBookController {
     @PostMapping("/upload")
     public ApiResponse uploadBook(@RequestPart(value = "image", required = false) List<MultipartFile> files, @RequestPart(value = "semtleBooktDto") CreateSemtleBookDto semtleBookDto) throws Exception {
         return semtleBookService.createBook(semtleBookDto, files);
-
     }
 
     @ApiOperation(value = "책 상세정보", notes = "책 상세정보")
