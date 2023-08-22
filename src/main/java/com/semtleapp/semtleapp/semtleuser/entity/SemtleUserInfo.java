@@ -1,6 +1,7 @@
 package com.semtleapp.semtleapp.semtleuser.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.semtleapp.semtleapp.semtledues.dto.ModifyDuesReqDto;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -46,8 +47,9 @@ public class SemtleUserInfo {
     @Column(name = "status")
     private String status;
 
-    public void changeUserStatus(){
-        this.status = "ING";
+    public void updateStatus(ModifyDuesReqDto modifyDuesReqDto){
+        this.status = modifyDuesReqDto.getStatus();
     }
+
 }
 

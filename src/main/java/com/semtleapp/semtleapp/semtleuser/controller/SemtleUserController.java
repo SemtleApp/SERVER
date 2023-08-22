@@ -14,9 +14,11 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.List;
 
 import static com.semtleapp.semtleapp.global.exception.ErrorCode.BAD_REQUEST;
 
@@ -32,14 +34,17 @@ public class SemtleUserController {
 
     @ApiOperation(value = "회원가입", notes = "회원가입")
     @PostMapping("/signup")
-    public ApiResponse<SemtleUserRes.UserDetail> signup(@RequestBody SemtleUserReq.SignupDto signupDto) {
-        SemtleUserRes.UserDetail result = semtleUserService.signup(signupDto);
+    public ApiResponse<SemtleUserRes.UserDetail> signup(@RequestPart(value = "signupDto") SemtleUserReq.SignupDto signupDto,
+                                                        @RequestPart(value = "file", required = false) MultipartFile file
+                                                        ) {
+
+        SemtleUserRes.UserDetail result = semtleUserService.signup(signupDto, file);
         return new ApiResponse<>(result);
     }
 
     @ApiOperation(value = "로그인", notes = "로그인")
     @PostMapping("/login")
-    public ApiResponse<Token> login(HttpServletRequest request, @RequestBody SemtleUserReq.LoginDto loginDto,
+    public ApiResponse<Token> login(@RequestBody SemtleUserReq.LoginDto loginDto,
                                     @RequestHeader(value = "User-Agent", required = false) String userAgent) {
 
         return new ApiResponse<>(semtleUserService.login(loginDto, userAgent));
