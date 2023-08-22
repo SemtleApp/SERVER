@@ -30,7 +30,9 @@ public enum ErrorCode {
 
     NOT_EXIST_POST(400, "존재하지 않는 게시글입니다", HttpStatus.BAD_REQUEST),
 
-    ;
+    DUPLICATE_BOOK(400,"이미 등록된 도서입니다.",HttpStatus.BAD_REQUEST),
+    NOT_EXIST_BOOK(400,"존재하지 않는 도서입니다.",HttpStatus.NOT_FOUND),
+    NULL_BOOK(400,"도서 내용을 모두 입력해 주십시오",HttpStatus.BAD_REQUEST);
 
     private int code;
     private String message;

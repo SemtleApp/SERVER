@@ -9,10 +9,10 @@ import lombok.Setter;
 @Getter
 @Builder
 @NoArgsConstructor
-public class DeleteSemtleBookReqDto {
+public class ReturnSemtleBookDto {
     private Long bookId;
 
-    public DeleteSemtleBookReqDto(Long bookId) {
+    public ReturnSemtleBookDto(Long bookId) {
         this.bookId = bookId;
     }
 }

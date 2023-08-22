@@ -45,4 +45,9 @@ public class SemtleUserInfo {
 
     @Column(name = "status")
     private String status;
+
+    public void changeUserStatus(){
+        this.status = "ING";
+    }
 }
+

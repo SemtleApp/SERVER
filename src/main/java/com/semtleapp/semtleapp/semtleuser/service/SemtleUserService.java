@@ -12,4 +12,6 @@ public interface SemtleUserService {
 
     Token login(SemtleUserReq.LoginDto loginDto, String userAgent);
 
+    Long changeUserStatus(Long userId);
+
 }

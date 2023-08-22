@@ -1,6 +1,5 @@
 package com.semtleapp.semtleapp.semtlebook.dto;
 
-import com.semtleapp.semtleapp.semtlebook.entity.SemtleBook;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,22 +9,16 @@ import lombok.Setter;
 @Getter
 @Builder
 @NoArgsConstructor
-public class CreateSemtleBookDto {
+public class SemtleBookDetailResDto {
     private String bookName;
     private String bookAuthor;
     private int bookCount;
+    private String bookStatus;
 
-    public CreateSemtleBookDto(String bookName, String bookAuthor, int bookCount){
+    public SemtleBookDetailResDto(String bookName, String bookAuthor, int bookCount, String bookStatus) {
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCount = bookCount;
+        this.bookStatus = bookStatus;
     }
-
-
-    public SemtleBook toEntity() {
-        return SemtleBook.builder()
-                .bookName(bookName)
-                .bookAuthor(bookAuthor)
-                .bookCount(bookCount).build();
-        }
 }

@@ -1,5 +1,6 @@
 package com.semtleapp.semtleapp.semtleuser.repository;
 
+import com.semtleapp.semtleapp.semtlebook.entity.SemtleBook;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,5 @@ public interface SemtleUserRepository extends JpaRepository<SemtleUser, Long> {
     boolean existsSemtleUserByEmailAndSocial(String email, String social);
 
     Optional<SemtleUser> findSemtleUserByEmailAndSocial(String email, String social);
+
 }

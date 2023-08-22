@@ -1,6 +1,7 @@
 package com.semtleapp.semtleapp.semtleuser.controller;
 
 import com.semtleapp.semtleapp.global.entity.ApiResponse;
+import com.semtleapp.semtleapp.global.entity.CustomResponse;
 import com.semtleapp.semtleapp.global.exception.CustomException;
 import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserDto;
 import com.semtleapp.semtleapp.global.jwt.JwtService;
@@ -54,6 +55,12 @@ public class SemtleUserController {
             throw new CustomException(BAD_REQUEST);
 
         return new ApiResponse<>(semtleUserService.nowUser(principal.getName()));
+    }
+
+    @ApiOperation(value = "유저 상태 변경", notes = "유저 상태 변경")
+    @PostMapping()
+    public CustomResponse changUserStatus(@RequestBody Long userId){
+        return new CustomResponse.ResponseMap(200, "회원 상태 변경 완료", semtleUserService.changeUserStatus(userId));
     }
 
 

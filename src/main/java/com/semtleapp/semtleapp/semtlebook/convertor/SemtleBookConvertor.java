@@ -1,5 +1,6 @@
 package com.semtleapp.semtleapp.semtlebook.convertor;
 
+import com.semtleapp.semtleapp.semtlebook.dto.SemtleBookDetailResDto;
 import com.semtleapp.semtleapp.semtlebook.dto.UpdateSemtleBookReqDto;
 import com.semtleapp.semtleapp.semtlebook.dto.UpdateSemtleBookResDto;
 import com.semtleapp.semtleapp.semtlebook.entity.SemtleBook;
@@ -14,8 +15,15 @@ public class SemtleBookConvertor {
                 .bookId(semtleBook.getBookId())
                 .bookName(semtleBook.getBookName())
                 .bookAuthor(semtleBook.getBookAuthor())
-                .bookImage(semtleBook.getBookImage())
                 .bookCount(semtleBook.getBookCount()).build();
+    }
+
+    public static SemtleBookDetailResDto semtleBookDetailResDto(SemtleBook semtleBook){
+        return SemtleBookDetailResDto.builder()
+                .bookName(semtleBook.getBookName())
+                .bookAuthor(semtleBook.getBookAuthor())
+                .bookCount(semtleBook.getBookCount())
+                .bookStatus(semtleBook.getStatus()).build();
     }
 
 

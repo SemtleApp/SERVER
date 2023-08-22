@@ -11,4 +11,5 @@ import java.util.Optional;
 public interface SemtleUserInfoRepository extends JpaRepository<SemtleUserInfo, Long> {
 
     Optional<SemtleUserInfo> findBySemtleUser(SemtleUser semtleUser);
+    SemtleUserInfo findByInfoId(Long Id);
 }
