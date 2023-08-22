@@ -132,7 +132,7 @@ public class SemtleBookServiceImpl implements SemtleBookService {
     @Override
     public void saveBookFile(List<MultipartFile> files, SemtleBook semtleBook) {
         try {
-            List<PhotoDto> photoDtoList = fileUserService.saveFile(files, PhotoType.BOOK, semtleBook.getBookId());
+            List<PhotoDto> photoDtoList = fileUserService.saveFiles(files, PhotoType.BOOK, semtleBook.getBookId());
         } catch (IOException e) {
             e.printStackTrace();
         }

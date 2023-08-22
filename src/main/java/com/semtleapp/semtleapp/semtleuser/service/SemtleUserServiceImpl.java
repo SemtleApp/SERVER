@@ -144,16 +144,7 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 
         }
 
-
         return token;
     }
-
-    public Long changeUserStatus(Long userId){
-        Optional<SemtleUserInfo> semtleUserInfo = semtleUserInfoRepository.findById(userId);
-        semtleUserInfo.get().changeUserStatus();
-        return userId;
-
-    }
-
 
 }

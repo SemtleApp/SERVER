@@ -32,6 +32,9 @@ public class SemtleBook {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "book_image")
+    private  String bookImage;
+
     @Column(name = "book_count")
     private int bookCount;
 
@@ -53,9 +56,4 @@ public class SemtleBook {
         bookCount -= 1;
     }
 
-    public SemtleBook toEntity() {
-        return SemtleBook.builder()
-                .bookName(bookName)
-                .bookAuthor(bookAuthor).build();
-    }
 }

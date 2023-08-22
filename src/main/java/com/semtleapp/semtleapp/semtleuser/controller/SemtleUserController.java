@@ -62,13 +62,4 @@ public class SemtleUserController {
         return new ApiResponse<>(semtleUserService.nowUser(principal.getName()));
     }
 
-    @ApiOperation(value = "유저 상태 변경", notes = "유저 상태 변경")
-    @PostMapping()
-    public CustomResponse changUserStatus(@RequestBody Long userId){
-        return new CustomResponse.ResponseMap(200, "회원 상태 변경 완료", semtleUserService.changeUserStatus(userId));
-    }
-
-
-
-
 }
