@@ -32,7 +32,7 @@ public enum ErrorCode {
 
     UNAUTHORIZED_MEMBER(400, "관리자의 승인이 나지 않았습니다", HttpStatus.BAD_REQUEST),
 
-    NOT_EXIST_USER(400, "존재하지 않는 유저입니다", HttpStatus.BAD_REQUEST),
+    NOT_EXIST_USER(400, "존재하지 않는 아이디입니다", HttpStatus.BAD_REQUEST),
 
     DUPLICATE_BOOK(400,"이미 등록된 도서입니다.",HttpStatus.BAD_REQUEST),
     NOT_EXIST_BOOK(400,"존재하지 않는 도서입니다.",HttpStatus.NOT_FOUND),
