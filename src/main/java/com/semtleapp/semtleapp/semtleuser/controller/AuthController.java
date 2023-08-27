@@ -45,14 +45,14 @@ public class AuthController {
         return new ApiResponse<>(token);
     }
 
-    @ApiOperation(value = "카카오 로그인", notes = "카카오 로그인")
-    @PostMapping("/kakao/login")
-    public Token kakaoSignupOrLogin(@RequestParam String accessTokenFromSocial) {
-        Token token = authService.createAndLoginKakaoUser(accessTokenFromSocial);
-
-        if(token == null)
-            throw new CustomException(FAILED_SIGNUP);
-
-        return token;
-    }
+//    @ApiOperation(value = "카카오 로그인", notes = "카카오 로그인")
+//    @PostMapping("/kakao/login")
+//    public Token kakaoSignupOrLogin(@RequestParam String accessTokenFromSocial) {
+//        Token token = authService.createAndLoginKakaoUser(accessTokenFromSocial);
+//
+//        if(token == null)
+//            throw new CustomException(FAILED_SIGNUP);
+//
+//        return token;
+//    }
 }
