@@ -22,8 +22,8 @@ public class AuthController {
 
     /**
      * 카카오 소셜로그인
-     * https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=03e358973f5106d2b7c655b68daf1862&redirect_uri=http://localhost:9000/oauth/kakao
-     * https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=03e358973f5106d2b7c655b68daf1862&redirect_uri=http://semtle.catholic.ac.kr:9000/oauth/kakao
+     * https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=fd33dcafc2a996fc37992f3e425f0fa3&redirect_uri=http://localhost:9000/oauth/kakao
+     * https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=fd33dcafc2a996fc37992f3e425f0fa3&redirect_uri=http://semtle.catholic.ac.kr:9000/oauth/kakao
      * */
     @ApiOperation(value = "카카오 로그인 -> 이 API로 접속해 셈틀용 토큰을 반환",
             notes = "원래는 프론트엔드가 첫 회원가입 링크로 들어가서 code를 받고, 그 받은 코드로 이 api에 접근해서" +
