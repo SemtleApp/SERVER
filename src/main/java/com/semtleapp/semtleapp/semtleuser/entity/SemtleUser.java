@@ -30,12 +30,12 @@ public class SemtleUser extends BaseTimeEntity implements UserDetails {
     @Column(name = "user_id", unique = true, nullable = false)
     private Long userId;
 
+    @Column(name = "username", unique = true)
+    private String username; //로그인 시 사용할 아이디
     @Column(name = "email", unique = true)
     private String email;
-
     @Column(name = "password")
     private String password;
-
     @Column(name = "role")
     private String role;
 

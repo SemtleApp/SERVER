@@ -50,7 +50,8 @@ public class JwtProvider {
         return Token.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .key(userPk).build();
+                .key(userPk)
+                .build();
     }
 
     private String getToken(Claims claims, Date currentTime, long tokenValidTime, String secretKey) {
@@ -72,7 +73,11 @@ public class JwtProvider {
 
     // 토큰에서 회원 정보 추출
     public String getUserPk(String token) {
-        return Jwts.parser().setSigningKey(accessSecretKey).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser()
+                .setSigningKey(accessSecretKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
     // Request의 Header에서 token 값 가져오기
