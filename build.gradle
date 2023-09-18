@@ -36,7 +36,7 @@ dependencies {
 
     //mysql
     implementation 'commons-io:commons-io:2.6'
-    runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.30'
 
     //security && JWT
     implementation 'org.springframework.boot:spring-boot-starter-security'

@@ -46,7 +46,7 @@ public class AuthService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=03e358973f5106d2b7c655b68daf1862");
+            sb.append("&client_id=fd33dcafc2a996fc37992f3e425f0fa3");
             sb.append("&redirect_uri=http://localhost:9000/oauth/kakao");
             sb.append("&code=" + code);
             bw.write(sb.toString());

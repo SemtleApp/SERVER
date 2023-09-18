@@ -2,6 +2,7 @@ package com.semtleapp.semtleapp.semtleuser.dto;
 
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUser;
 import com.semtleapp.semtleapp.semtleuser.entity.SemtleUserInfo;
+import com.semtleapp.semtleapp.semtleuser.repository.SemtleUserInfoRepository;
 import lombok.*;
 
 public class SemtleUserRes {
@@ -18,8 +19,10 @@ public class SemtleUserRes {
         private int grade;
         private String studentId;
         private String phone;
+        private SemtleUserInfoRepository.GetProfileImage profileImage;
 
-        public static UserDetail toDto(SemtleUser user, SemtleUserInfo userInfo){
+
+        public static UserDetail toDto(SemtleUser user, SemtleUserInfo userInfo, SemtleUserInfoRepository.GetProfileImage profileImage){
             return UserDetail.builder()
                     .email(user.getEmail())
                     .name(userInfo.getName())
@@ -27,6 +30,7 @@ public class SemtleUserRes {
                     .grade(userInfo.getGrade())
                     .studentId(userInfo.getStudentId())
                     .phone(userInfo.getPhone())
+                    .profileImage(profileImage)
                     .build();
         }
 

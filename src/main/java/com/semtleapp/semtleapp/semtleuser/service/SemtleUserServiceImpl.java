@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.semtleapp.semtleapp.global.exception.ErrorCode.UNAUTHORIZED_MEMBER;
+import static com.semtleapp.semtleapp.global.exception.ErrorCode.*;
 
 
 @Service
@@ -42,20 +42,20 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 
     private final FileUserService fileUserService;
 
-    private void uploadPhoto(List<MultipartFile> files, SemtleStudyPost saveSemtleStudyPost) {
-        if(files != null) {
-            try {
-                fileUserService.saveFiles(files, PhotoType.STUDY, saveSemtleStudyPost.getPostId());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    private void uploadPhoto(List<MultipartFile> files, Long userId) {
+//        if(files != null) {
+//            try {
+//                fileUserService.saveFiles(files, PhotoType.USER, userId);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     @SneakyThrows
     @Transactional
     @Override
-    public SemtleUserRes.UserDetail signup(SemtleUserReq.SignupDto signupDto, MultipartFile file) {
+    public SemtleUserRes.UserDetail signup(SemtleUserReq.SignupDto signupDto, MultipartFile file ) {
         semtleUserRepository.findByEmail(signupDto.getEmail()).ifPresent(e -> {
             throw new CustomException(ErrorCode.REGISTERED_EMAIL);
         });
@@ -66,7 +66,7 @@ public class SemtleUserServiceImpl implements SemtleUserService {
                 .role("ROLE_USER")
                 .social("")
                 .build();
-        semtleUserRepository.save(user);
+        Long userId = semtleUserRepository.save(user).getUserId();
 
         SemtleUserInfo userInfo = SemtleUserInfo.builder()
                 .semtleUser(user)
@@ -81,18 +81,19 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 
 
         //프로필 사진 업로드하기
-        fileUserService.saveFile(file, PhotoType.USER, user.getUserId());
+        fileUserService.saveFile(file, PhotoType.USER, userId);
+        SemtleUserInfoRepository.GetProfileImage profileImage = semtleUserInfoRepository.getProfileImage(userId);
 
-
-
-        return SemtleUserRes.UserDetail.toDto(user, userInfo);
+        return SemtleUserRes.UserDetail.toDto(user, userInfo, profileImage);
     }
 
     @Override
     public SemtleUserRes.UserDetail nowUser(String email) {
         SemtleUser user = semtleUserRepository.findByEmail(email).get();
         SemtleUserInfo userInfo = semtleUserInfoRepository.findBySemtleUser(user).get();
-        return SemtleUserRes.UserDetail.toDto(user, userInfo);
+        SemtleUserInfoRepository.GetProfileImage profileImage = semtleUserInfoRepository.getProfileImage(user.getUserId());
+
+        return SemtleUserRes.UserDetail.toDto(user, userInfo, profileImage);
     }
 
 
@@ -101,9 +102,20 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 //        authenticationManager.authenticate(
 //                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
 //        );
-        SemtleUser semtleUser = semtleUserRepository.findByEmail(loginDto.getEmail()).get();
-        SemtleUserInfo semtleUserInfo = semtleUserInfoRepository.findBySemtleUser(semtleUser).get();
+        SemtleUser semtleUser = semtleUserRepository.findByEmail(loginDto.getEmail()).orElse(null);
 
+
+        //유저 존재 여부
+        if(semtleUser == null)
+            throw new CustomException(NOT_EXIST_USER);
+
+        //비밀번호 일치 여부
+        if(!passwordEncoder.matches(loginDto.getPassword(), semtleUser.getPassword())){
+            throw new CustomException(PASSWORD_NOT_FOUND_EXCEPTION);
+        }
+
+        //관리자 승인 여부
+        SemtleUserInfo semtleUserInfo = semtleUserInfoRepository.findBySemtleUser(semtleUser).get();
         if(semtleUserInfo.getStatus().equals("BEFORE"))
             throw new CustomException(UNAUTHORIZED_MEMBER);
 
@@ -132,9 +144,7 @@ public class SemtleUserServiceImpl implements SemtleUserService {
 
         }
 
-
         return token;
     }
-
 
 }

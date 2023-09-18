@@ -6,8 +6,10 @@ import com.semtleapp.semtleapp.semtleuser.dto.SemtleUserRes;
 import com.semtleapp.semtleapp.semtleuser.dto.Token;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 public interface SemtleUserService {
-    SemtleUserRes.UserDetail signup(SemtleUserReq.SignupDto signupDto, MultipartFile file);
+    SemtleUserRes.UserDetail signup(SemtleUserReq.SignupDto signupDto, MultipartFile file );
 
     SemtleUserRes.UserDetail nowUser(String email);
 
