@@ -19,7 +19,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@Api(tags={"03.Notice❤"})
+@Api(tags={"03.Notice💛"})
 @RequestMapping("/notice")
 public class SemtleNoticeController {
 
