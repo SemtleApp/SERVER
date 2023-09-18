@@ -4,6 +4,7 @@ import com.semtleapp.semtleapp.global.entity.ApiResponse;
 import com.semtleapp.semtleapp.global.entity.CustomResponse;
 import com.semtleapp.semtleapp.semtlebook.dto.*;
 import com.semtleapp.semtleapp.semtlebook.service.SemtleBookService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +16,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
+@Api(tags={"05.Book💙"})
 @RequestMapping("/book")
 public class SemtleBookController {
     private final SemtleBookService semtleBookService;
