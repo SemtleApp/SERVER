@@ -16,6 +16,7 @@ public enum PhotoType {
     BOOK("BOOK", "/BOOK"),
     ANY("ANY", "/ANY"),
     USER("USER", "/USER"),
+    DUES("DUES", "DUES"),
 
     ;
 
